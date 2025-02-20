@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.scss';
+import General from './components/input/General';
+import Educational from './components/input/Educational';
+import Practical from './components/input/Practical';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <StrictMode>
+        <General />
+        <Educational />
+        <Practical />
+    </StrictMode>
+);
