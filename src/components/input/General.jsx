@@ -4,6 +4,7 @@ export default function General() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [website, setWebsite] = useState('');
 
     const handleChange = (e) => {
         const target = e.target;
@@ -18,13 +19,16 @@ export default function General() {
             case 'phone':
                 setPhone(target.value);
                 break;
+            case 'website':
+                setWebsite(target.value);
+                break;
         }
     };
 
     return (
         <fieldset className='flex flex-col flex-nowrap '>
             <p>
-                {name} {email} {phone}
+                {name} {email} {phone} {website}
             </p>
             <label htmlFor='name'>Name</label>
             <input
@@ -54,6 +58,15 @@ export default function General() {
                 value={phone}
                 onChange={handleChange}
                 pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+            />
+            <label htmlFor='website'>Website</label>
+            <input
+                type='text'
+                id='website'
+                name='website'
+                value={website}
+                onChange={handleChange}
+                placeholder='Website'
             />
         </fieldset>
     );
