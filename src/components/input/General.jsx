@@ -8,17 +8,24 @@ export default function General() {
     const handleChange = (e) => {
         const target = e.target;
 
-        if (target.name === 'name') {
-            setName(target.value);
-        } else if (target.name === 'email') {
-            setEmail(target.value);
-        } else if (target.name === 'phone') {
-            setPhone(target.value);
+        switch (target.name) {
+            case 'name':
+                setName(target.value);
+                break;
+            case 'email':
+                setEmail(target.value);
+                break;
+            case 'phone':
+                setPhone(target.value);
+                break;
         }
     };
 
     return (
-        <form className='flex flex-frow flex-nowrap'>
+        <fieldset className='flex flex-col flex-nowrap '>
+            <p>
+                {name} {email} {phone}
+            </p>
             <label htmlFor='name'>Name</label>
             <input
                 type='text'
@@ -48,6 +55,6 @@ export default function General() {
                 onChange={handleChange}
                 pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
             />
-        </form>
+        </fieldset>
     );
 }
