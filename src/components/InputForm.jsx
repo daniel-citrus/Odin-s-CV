@@ -1,6 +1,6 @@
-import General from './General';
-import Educational from './Educational';
-import Practical from './Practical';
+import General from './inputFields/General';
+import Educational from './inputFields/Educational';
+import Practical from './inputFields/Practical';
 
 export default function InputForm() {
     return (
