@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Practical() {
+export default function PracticalInput() {
     const [employer, setEmployer] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

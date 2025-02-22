@@ -1,35 +1,6 @@
-import { useState } from 'react';
-
-export default function General() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [website, setWebsite] = useState('');
-
-    const handleChange = (e) => {
-        const target = e.target;
-
-        switch (target.name) {
-            case 'name':
-                setName(target.value);
-                break;
-            case 'email':
-                setEmail(target.value);
-                break;
-            case 'phone':
-                setPhone(target.value);
-                break;
-            case 'website':
-                setWebsite(target.value);
-                break;
-        }
-    };
-
+export default function General({ name, email, phone, website, handleChange }) {
     return (
         <fieldset className='flex flex-col flex-nowrap '>
-            <p>
-                {name} {email} {phone} {website}
-            </p>
             <label htmlFor='name'>Name</label>
             <input
                 type='text'

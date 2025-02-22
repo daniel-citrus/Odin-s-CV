@@ -1,10 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.scss';
-import InputForm from './components/InputForm';
+import App from './components/App';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <InputForm />
+        <App />
     </StrictMode>
 );

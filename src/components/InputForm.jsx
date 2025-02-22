@@ -1,13 +1,13 @@
-import General from './inputFields/General';
-import Educational from './inputFields/Educational';
-import Practical from './inputFields/Practical';
+import GeneralInput from './inputSections/GeneralInput';
+import EducationalInput from './inputSections/EducationalInput';
+import PracticalInput from './inputSections/PracticalInput';
 
-export default function InputForm() {
+export default function InputForm(props) {
     return (
         <form className='inputForm flex flex-col flex-nowrap gap-10 border border-solid'>
-            <General />
-            <Educational />
-            <Practical />
+            <GeneralInput {...props} />
+            <EducationalInput {...props} />
+            <PracticalInput {...props} />
         </form>
     );
 }
