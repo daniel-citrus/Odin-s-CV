@@ -47,7 +47,6 @@ export default function App() {
         website,
         /*         school,
         study,
-        startDate,
         studyStartDate,
         studyEndDate,
         employer,
