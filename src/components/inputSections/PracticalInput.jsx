@@ -1,34 +1,11 @@
-import { useState } from 'react';
-
-export default function PracticalInput() {
-    const [employer, setEmployer] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-
-    const handleChange = (e) => {
-        const target = e.target;
-
-        switch (target.name) {
-            case 'employer':
-                setEmployer(target.value);
-                break;
-            case 'job_title':
-                setTitle(target.value);
-                break;
-            case 'description':
-                setDescription(target.value);
-                break;
-            case 'job_start_date':
-                setStartDate(target.value);
-                break;
-            case 'job_end_date':
-                setEndDate(target.value);
-                break;
-        }
-    };
-
+export default function PracticalInput({
+    employer,
+    title,
+    description,
+    workStartDate,
+    workEndDate,
+    handleChange,
+}) {
     return (
         <fieldset className='flex flex-col flex-nowrap'>
             <p>
@@ -39,13 +16,15 @@ export default function PracticalInput() {
                 id='employer'
                 name='employer'
                 placeholder='Employer'
+                value={employer}
                 onChange={handleChange}
             />
             <input
                 type='text'
-                id='job_title'
-                name='job_title'
+                id='title'
+                name='title'
                 placeholder='Job Title'
+                value={title}
                 onChange={handleChange}
             />
 
@@ -55,22 +34,25 @@ export default function PracticalInput() {
                 name='description'
                 placeholder='Job Description'
                 maxLength='500'
+                value={description}
                 onChange={handleChange}
             />
 
             <input
                 type='date'
-                id='job_start_date'
-                name='job_start_date'
+                id='workStartDate'
+                name='workStartDate'
                 placeholder='Start Date'
+                value={workStartDate}
                 onChange={handleChange}
             />
 
             <input
                 type='date'
-                id='job_end_date'
-                name='job_end_date'
+                id='workEndDate'
+                name='workEndDate'
                 placeholder='End Date'
+                value={workEndDate}
                 onChange={handleChange}
             />
         </fieldset>
