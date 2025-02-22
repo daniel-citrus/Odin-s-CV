@@ -97,6 +97,7 @@ export default function EducationalInput() {
 
     return (
         <div className='education'>
+            <h2>Education</h2>
             <ul className='educationList'>
                 {educationData.map((d) => {
                     return (
@@ -105,7 +106,7 @@ export default function EducationalInput() {
                             <button
                                 type='button'
                                 className={
-                                    editing === d.id ? 'bg-gray-700' : ''
+                                    editing === d.id ? 'bg-zinc-700' : ''
                                 }
                                 disabled={editing === d.id}
                                 onClick={() => handleEdit(d.id)}
