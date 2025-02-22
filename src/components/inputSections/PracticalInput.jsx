@@ -1,13 +1,47 @@
-export default function PracticalInput({
-    employer,
-    title,
-    description,
-    workStartDate,
-    workEndDate,
-    handleChange,
-}) {
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
+
+export default function PracticalInput() {
+    const {
+        practical: {
+            employer,
+            title,
+            description,
+            workStartDate,
+            workEndDate,
+            setTitle,
+            setEmployer,
+            setDescription,
+            setWorkStartDate,
+            setWorkEndDate,
+        },
+    } = useContext(DataContext);
+
+    const handleChange = (e) => {
+        const target = e.target;
+
+        switch (target.name) {
+            case 'employer':
+                setEmployer(target.value);
+                break;
+            case 'title':
+                setTitle(target.value);
+                break;
+            case 'description':
+                setDescription(target.value);
+                break;
+            case 'workStartDate':
+                setWorkStartDate(target.value);
+                break;
+            case 'workEndDate':
+                setWorkEndDate(target.value);
+                break;
+        }
+    };
+
     return (
         <fieldset className='flex flex-col flex-nowrap'>
+            <label htmlFor='employer'>Employer</label>
             <input
                 type='text'
                 id='employer'
@@ -16,6 +50,7 @@ export default function PracticalInput({
                 value={employer}
                 onChange={handleChange}
             />
+            <label htmlFor='title'>Title</label>
             <input
                 type='text'
                 id='title'
@@ -24,7 +59,7 @@ export default function PracticalInput({
                 value={title}
                 onChange={handleChange}
             />
-
+            <label htmlFor='description'>Job Description</label>
             <textarea
                 type='text'
                 id='description'
@@ -34,7 +69,7 @@ export default function PracticalInput({
                 value={description}
                 onChange={handleChange}
             />
-
+            <label htmlFor='workStartDate'>Start Date</label>
             <input
                 type='date'
                 id='workStartDate'
@@ -43,7 +78,7 @@ export default function PracticalInput({
                 value={workStartDate}
                 onChange={handleChange}
             />
-
+            <label htmlFor='workEndDate'>End Date</label>
             <input
                 type='date'
                 id='workEndDate'

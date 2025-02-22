@@ -1,9 +1,11 @@
-export default function EducationalOutput({
-    school,
-    study,
-    studyStartDate,
-    studyEndDate,
-}) {
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
+
+export default function EducationalOutput() {
+    const {
+        educational: { school, study, studyStartDate, studyEndDate },
+    } = useContext(DataContext);
+
     return (
         <div className='educational'>
             <div className='school'>{school}</div>

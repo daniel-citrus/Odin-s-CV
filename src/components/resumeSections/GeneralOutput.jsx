@@ -1,4 +1,11 @@
-export default function GeneralOutput({ name, email, phone, website }) {
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
+
+export default function GeneralOutput() {
+    const {
+        general: { name, email, phone, website },
+    } = useContext(DataContext);
+
     return (
         <div className='general'>
             <div className='name'>{name}</div>

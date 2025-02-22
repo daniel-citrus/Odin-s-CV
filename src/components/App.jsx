@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { worker } from 'globals';
 import InputForm from './InputForm';
 import Resume from './Resume';
+
+import { DataContext } from './DataContext';
 
 export default function App() {
     /* General */
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [website, setWebsite] = useState('');
+    const [website, setWebsitfe] = useState('');
     /* Educational */
     const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
@@ -67,27 +68,48 @@ export default function App() {
         }
     };
 
-    const props = {
+    const setWebsite = (e) => {
+        setWebsitfe(e);
+    };
+    const general = {
         name,
+        setName,
         email,
+        setEmail,
         phone,
+        setPhone,
         website,
+        setWebsite,
+    };
+
+    const educational = {
         school,
         study,
         studyStartDate,
         studyEndDate,
+        setSchool,
+        setStudy,
+        setStudyStartDate,
+        setStudyEndDate,
+    };
+
+    const practical = {
         employer,
         title,
         description,
         workStartDate,
         workEndDate,
-        handleChange,
+        setEmployer,
+        setTitle,
+        setDescription,
+        setWorkStartDate,
+        setWorkEndDate,
     };
 
     return (
-        <>
-            <InputForm {...props} />
-            <Resume {...props} />
-        </>
+        <DataContext.Provider value={{ general, educational, practical }}>
+            <InputForm />
+            <Resume />
+        </DataContext.Provider>
     );
 }

@@ -1,4 +1,39 @@
-export default function General({ name, email, phone, website, handleChange }) {
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
+
+export default function GeneralInput() {
+    const {
+        general: {
+            name,
+            email,
+            phone,
+            website,
+            setName,
+            setEmail,
+            setPhone,
+            setWebsite,
+        },
+    } = useContext(DataContext);
+
+    const handleChange = (e) => {
+        const target = e.target;
+
+        switch (target.name) {
+            case 'name':
+                setName(target.value);
+                break;
+            case 'email':
+                setEmail(target.value);
+                break;
+            case 'phone':
+                setPhone(target.value);
+                break;
+            case 'website':
+                setWebsite(target.value);
+                break;
+        }
+    };
+
     return (
         <fieldset className='flex flex-col flex-nowrap '>
             <label htmlFor='name'>Name</label>
