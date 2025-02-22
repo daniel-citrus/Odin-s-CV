@@ -3,7 +3,7 @@ import { DataContext } from '../DataContext';
 
 export default function GeneralOutput() {
     const {
-        general: { name, email, phone, website },
+        generalData: { name, email, phone, website },
     } = useContext(DataContext);
 
     return (

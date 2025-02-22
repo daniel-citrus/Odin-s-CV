@@ -7,7 +7,7 @@ export default function InputFields() {
         <div className='inputFields flex flex-col flex-nowrap gap-10 border border-solid'>
             <GeneralInput />
             <EducationalInput />
-            <PracticalInput />
+            {/* <PracticalInput /> */}
         </div>
     );
 }

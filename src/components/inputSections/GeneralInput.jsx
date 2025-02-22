@@ -1,41 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
 
 export default function GeneralInput() {
-    const {
-        general: {
-            name,
-            email,
-            phone,
-            website,
-            setName,
-            setEmail,
-            setPhone,
-            setWebsite,
-        },
-    } = useContext(DataContext);
+    const { generalData, setGeneralData } = useContext(DataContext);
+    let { name, email, phone, website } = generalData;
 
     const handleChange = (e) => {
         const target = e.target;
 
         switch (target.name) {
             case 'name':
-                setName(target.value);
+                name = target.value;
                 break;
             case 'email':
-                setEmail(target.value);
+                email = target.value;
                 break;
             case 'phone':
-                setPhone(target.value);
+                phone = target.value;
                 break;
             case 'website':
-                setWebsite(target.value);
+                website = target.value;
                 break;
         }
+
+        setGeneralData({
+            name,
+            email,
+            phone,
+            website,
+        });
     };
 
     return (
         <fieldset className='flex flex-col flex-nowrap '>
+            <h2>Personal Information</h2>
             <label htmlFor='name'>Name</label>
             <input
                 type='text'

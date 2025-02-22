@@ -3,7 +3,7 @@ import { DataContext } from '../DataContext';
 import { v4 as uuid4 } from 'uuid';
 
 export default function EducationalInput() {
-    const { data: educationData, setData: setEducationData } =
+    const { educationData, setEducationData } =
         useContext(DataContext);
 
     const [school, setSchool] = useState('');

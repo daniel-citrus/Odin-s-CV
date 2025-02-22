@@ -1,67 +1,52 @@
-import { useContext, useState } from 'react';
-import InputForm from './InputForm';
+import { useState } from 'react';
+import InputFields from './InputFields';
 import Resume from './Resume';
-
 import { DataContext } from './DataContext';
 
 export default function App() {
-    const [educationData, setEducationData] = useContext(DataContext);
-    
-    /* General */
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [website, setWebsite] = useState('');
-    /* Educational */
-    const [school, setSchool] = useState('');
-    const [study, setStudy] = useState('');
-    const [studyStartDate, setStudyStartDate] = useState('');
-    const [studyEndDate, setStudyEndDate] = useState('');
-    /* Practical */
-    const [employer, setEmployer] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [workStartDate, setWorkStartDate] = useState('');
-    const [workEndDate, setWorkEndDate] = useState('');
+    const [generalData, setGeneralData] = useState({
+        name: 'Daniel Calvo',
+        email: 'thisismyemail@gmail.com',
+        phone: '(510) 123-4567',
+        website: 'www.daniel-calvo.com',
+    });
 
-    const general = {
-        name,
-        setName,
-        email,
-        setEmail,
-        phone,
-        setPhone,
-        website,
-        setWebsite,
-    };
+    const [educationData, setEducationData] = useState([
+        {
+            id: '1',
+            school: 'Texas A&M University - Commerce',
+            study: 'Computer Science',
+            studyStartDate: '',
+            studyEndDate: '',
+        },
+        {
+            id: '2',
+            school: 'Encinal High School',
+            study: 'GED',
+            studyStartDate: '',
+            studyEndDate: '',
+        },
+    ]);
 
-    const educational = {
-        school,
-        study,
-        studyStartDate,
-        studyEndDate,
-        setSchool,
-        setStudy,
-        setStudyStartDate,
-        setStudyEndDate,
-    };
-
-    const practical = {
-        employer,
-        title,
-        description,
-        workStartDate,
-        workEndDate,
-        setEmployer,
-        setTitle,
-        setDescription,
-        setWorkStartDate,
-        setWorkEndDate,
-    };
+    const [practicalData, setPracticalData] = useState({
+        employer: 'Hayward Unified School District',
+        title: 'District Webmaster',
+        description:
+            'Manage and maintain 30 district-owned websites, providing guidance on content updates, creating user-friendly training materials for diverse audiences, and enhancing web accessibility.',
+    });
 
     return (
-        <DataContext.Provider value={{ general, educational, practical }}>
-            <InputForm />
+        <DataContext.Provider
+            value={{
+                educationData,
+                setEducationData,
+                generalData,
+                setGeneralData,
+                practicalData,
+                setPracticalData,
+            }}
+        >
+            <InputFields />
             <Resume />
         </DataContext.Provider>
     );

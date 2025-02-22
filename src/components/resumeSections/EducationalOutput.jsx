@@ -2,16 +2,23 @@ import { useContext } from 'react';
 import { DataContext } from '../DataContext';
 
 export default function EducationalOutput() {
-    const {
-        educational: { school, study, studyStartDate, studyEndDate },
-    } = useContext(DataContext);
+    const { educationData } = useContext(DataContext);
 
     return (
-        <div className='educational'>
-            <div className='school'>{school}</div>
-            <div className='study'>{study}</div>
-            <div className='studyStartDate'>{studyStartDate}</div>
-            <div className='studyEndDate'>{studyEndDate}</div>
-        </div>
+        <ul className='education'>
+            {educationData.map((ed) => {
+                return (
+                    <li key={ed.id}>
+                        <div className='school'>{ed.school}</div>
+                        <div className='study'>{ed.study}</div>
+                        <div className='studyStartDate'>
+                            {ed.studyStartDate}
+                        </div>
+                        <div className='studyEndDate'>{ed.studyEndDate}</div>
+                    </li>
+                );
+            })}
+            <li></li>
+        </ul>
     );
 }
