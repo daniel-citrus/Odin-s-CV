@@ -5,14 +5,12 @@ import { v4 as uuid4 } from 'uuid';
 export default function EducationalInput() {
     const { data: educationData, setData: setEducationData } =
         useContext(DataContext);
-    // ID of data being edited
-    const [currentId, setCurrentId] = useState(null);
-    
+
     const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
     const [studyEndDate, setStudyEndDate] = useState('');
-    const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(null);
     const [prevData, setPrevData] = useState({});
 
     const handleChange = (e) => {
@@ -33,12 +31,12 @@ export default function EducationalInput() {
                 break;
         }
 
-        if (currentId === null) {
+        if (editing === null) {
             return;
         }
 
         const newData = educationData.map((cd) => {
-            if (cd.id === currentId) {
+            if (cd.id === editing) {
                 return {
                     ...cd,
                     [target.name]: target.value,
@@ -52,19 +50,18 @@ export default function EducationalInput() {
     };
 
     const handleCancel = () => {
-        setEditing(false);
-
-        const newData = educationData.map((cd) => {
-            if (cd.id === currentId) {
+        const newEducationData = educationData.map((cd) => {
+            if (cd.id === editing) {
                 return prevData;
             } else {
                 return cd;
             }
         });
 
-        setCurrentId(null);
+        setEditing(null);
         setPrevData({});
-        setEducationData(newData);
+        setEducationData(newEducationData);
+        updateFormValues({});
     };
 
     const handleDelete = (id) => {
@@ -73,26 +70,30 @@ export default function EducationalInput() {
 
     const handleEdit = (id) => {
         const data = educationData.find((d) => d.id === id);
-        setEditing(true);
 
         if (data === undefined) {
             return;
         }
 
         setPrevData({
-            id: data.id,
-            school: data.school,
-            study: data.study,
-            studyStartDate: data.studyStartDate,
-            studyEndDate: data.studyEndDate,
+            ...data,
         });
 
-        setCurrentId(id);
-        setSchool(data.school);
-        setStudy(data.study);
-        setStudyStartDate(data.studyStartDate);
-        setStudyEndDate(data.studyEndDate);
+        setEditing(id);
+        updateFormValues(data);
     };
+
+    function updateFormValues({
+        school = '',
+        study = '',
+        studyStartDate = '',
+        studyEndDate = '',
+    }) {
+        setSchool(school);
+        setStudy(study);
+        setStudyStartDate(studyStartDate);
+        setStudyEndDate(studyEndDate);
+    }
 
     return (
         <div className='education'>
@@ -101,18 +102,17 @@ export default function EducationalInput() {
                     return (
                         <li className='educationDataLine' key={d.id}>
                             {d.school}
-                            {editing && currentId === d.id ? (
-                                <button type='button' onClick={handleCancel}>
-                                    Cancel
-                                </button>
-                            ) : (
-                                <button
-                                    type='button'
-                                    onClick={() => handleEdit(d.id)}
-                                >
-                                    Edit
-                                </button>
-                            )}
+                            <button
+                                type='button'
+                                className={
+                                    editing === d.id ? 'bg-gray-700' : ''
+                                }
+                                disabled={editing === d.id}
+                                onClick={() => handleEdit(d.id)}
+                            >
+                                Edit
+                            </button>
+
                             <button
                                 type='button'
                                 onClick={() => handleDelete(d.id)}
@@ -160,6 +160,13 @@ export default function EducationalInput() {
                         onChange={handleChange}
                     />
                 </div>
+                {editing !== null ? (
+                    <button type='button' onClick={handleCancel}>
+                        Cancel
+                    </button>
+                ) : (
+                    ''
+                )}
             </form>
         </div>
     );
