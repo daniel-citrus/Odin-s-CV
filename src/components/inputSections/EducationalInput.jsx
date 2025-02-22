@@ -129,7 +129,7 @@ export default function EducationalInput() {
                             <button
                                 type='button'
                                 className={
-                                    editing === d.id ? 'bg-gray-700' : ''
+                                    editing === d.id ? 'bg-zinc-700' : ''
                                 }
                                 disabled={editing === d.id}
                                 onClick={() => handleEdit(d.id)}

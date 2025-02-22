@@ -140,7 +140,7 @@ table {
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    background-color: theme('colors.neutral.800');
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -151,12 +151,12 @@ table {
 
 a {
     font-weight: 500;
-    color: #646cff;
+    color: theme('colors.indigo.600');
     text-decoration: inherit;
 }
 
 a:hover {
-    color: #535bf2;
+    color: theme('colors.indigo.600');
 }
 
 button {
@@ -166,26 +166,26 @@ button {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: theme('colors.zinc.900');
     cursor: pointer;
     transition: border-color 0.25s;
 
     &:hover {
-        border-color: #646cff;
+        border-color: theme('colors.indigo.600');
     }
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        color: #213547;
-        background-color: #ffffff;
+        color: theme('colors.slate.800');
+        background-color: theme('colors.white');
     }
 
     a:hover {
-        color: #747bff;
+        color: theme('colors.indigo.400');
     }
 
     button {
-        background-color: #f9f9f9;
+        background-color: theme('colors.stone.50');
     }
 }
