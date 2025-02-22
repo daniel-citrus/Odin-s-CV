@@ -75,6 +75,7 @@ export default function EducationalInput() {
 
     const handleEdit = (id) => {
         const data = educationData.find((d) => d.id === id);
+        setEditing(true);
 
         if (data === undefined) {
             return;
