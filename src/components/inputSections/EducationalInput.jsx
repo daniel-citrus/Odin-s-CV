@@ -55,7 +55,7 @@ export default function Educational() {
                 onChange={handleChange}
             />
             <div className='schoolDate flex flex-col flex-nowrap'>
-                <label htmlFor='studyStartDate'>{studyStartDate}</label>
+                <label htmlFor='studyStartDate'>Start Date</label>
                 <input
                     type='date'
                     name='studyStartDate'
@@ -63,7 +63,7 @@ export default function Educational() {
                     value={studyStartDate}
                     onChange={handleChange}
                 />
-                <label htmlFor='studyEndDate'>{studyEndDate}</label>
+                <label htmlFor='studyEndDate'>End Date</label>
                 <input
                     type='date'
                     name='studyEndDate'
