@@ -5,12 +5,15 @@ import { v4 as uuid4 } from 'uuid';
 export default function EducationalInput() {
     const { data: educationData, setData: setEducationData } =
         useContext(DataContext);
-
+    // ID of data being edited
     const [currentId, setCurrentId] = useState(null);
+    
     const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
     const [studyEndDate, setStudyEndDate] = useState('');
+    const [editing, setEditing] = useState(false);
+    const [prevData, setPrevData] = useState({});
 
     const handleChange = (e) => {
         const target = e.target;
@@ -48,16 +51,41 @@ export default function EducationalInput() {
         setEducationData(newData);
     };
 
+    const handleCancel = () => {
+        setEditing(false);
+
+        const newData = educationData.map((cd) => {
+            if (cd.id === currentId) {
+                return prevData;
+            } else {
+                return cd;
+            }
+        });
+
+        setCurrentId(null);
+        setPrevData({});
+        setEducationData(newData);
+    };
+
     const handleDelete = (id) => {
         setEducationData(educationData.filter((d) => id != d.id));
     };
 
     const handleEdit = (id) => {
         const data = educationData.find((d) => d.id === id);
+        setEditing(true);
 
         if (data === undefined) {
             return;
         }
+
+        setPrevData({
+            id: data.id,
+            school: data.school,
+            study: data.study,
+            studyStartDate: data.studyStartDate,
+            studyEndDate: data.studyEndDate,
+        });
 
         setCurrentId(id);
         setSchool(data.school);
@@ -73,12 +101,18 @@ export default function EducationalInput() {
                     return (
                         <li className='educationDataLine' key={d.id}>
                             {d.school}
-                            <button
-                                type='button'
-                                onClick={() => handleEdit(d.id)}
-                            >
-                                Edit
-                            </button>
+                            {editing && currentId === d.id ? (
+                                <button type='button' onClick={handleCancel}>
+                                    Cancel
+                                </button>
+                            ) : (
+                                <button
+                                    type='button'
+                                    onClick={() => handleEdit(d.id)}
+                                >
+                                    Edit
+                                </button>
+                            )}
                             <button
                                 type='button'
                                 onClick={() => handleDelete(d.id)}
