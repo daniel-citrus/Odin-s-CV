@@ -1,64 +1,30 @@
 import { useState } from 'react';
 import InputForm from './InputForm';
 import Resume from './Resume';
+import { v4 as uuid4 } from 'uuid';
 
 import { DataContext } from './DataContext';
 
 export default function App() {
-    /* General */
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [website, setWebsite] = useState('');
-    /* Educational */
-    const [school, setSchool] = useState('');
-    const [study, setStudy] = useState('');
-    const [studyStartDate, setStudyStartDate] = useState('');
-    const [studyEndDate, setStudyEndDate] = useState('');
-    /* Practical */
-    const [employer, setEmployer] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [workStartDate, setWorkStartDate] = useState('');
-    const [workEndDate, setWorkEndDate] = useState('');
-
-    const general = {
-        name,
-        setName,
-        email,
-        setEmail,
-        phone,
-        setPhone,
-        website,
-        setWebsite,
-    };
-
-    const educational = {
-        school,
-        study,
-        studyStartDate,
-        studyEndDate,
-        setSchool,
-        setStudy,
-        setStudyStartDate,
-        setStudyEndDate,
-    };
-
-    const practical = {
-        employer,
-        title,
-        description,
-        workStartDate,
-        workEndDate,
-        setEmployer,
-        setTitle,
-        setDescription,
-        setWorkStartDate,
-        setWorkEndDate,
-    };
+    const [data, setData] = useState([
+        {
+            id: '1',
+            school: 'Texas A&M University - Commerce',
+            study: 'Computer Science',
+            studyStartDate: '',
+            studyEndDate: '',
+        },
+        {
+            id: '2',
+            school: 'Encinal High School',
+            study: 'GED',
+            studyStartDate: '',
+            studyEndDate: '',
+        },
+    ]);
 
     return (
-        <DataContext.Provider value={{ general, educational, practical }}>
+        <DataContext.Provider value={{ data, setData }}>
             <InputForm />
             <Resume />
         </DataContext.Provider>

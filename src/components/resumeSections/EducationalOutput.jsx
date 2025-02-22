@@ -3,7 +3,7 @@ import { DataContext } from '../DataContext';
 
 export default function EducationalOutput() {
     const {
-        educational: { school, study, studyStartDate, studyEndDate },
+        data: { school, study, studyStartDate, studyEndDate },
     } = useContext(DataContext);
 
     return (
