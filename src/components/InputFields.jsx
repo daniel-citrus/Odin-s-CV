@@ -1,6 +1,4 @@
-import GeneralInput from './inputSections/GeneralInput';
 import EducationalInput from './inputSections/EducationalInput';
-import PracticalInput from './inputSections/PracticalInput';
 
 export default function InputFields() {
     return (
