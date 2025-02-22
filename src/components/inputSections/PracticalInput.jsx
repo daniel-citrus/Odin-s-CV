@@ -1,22 +1,5 @@
-import { useContext } from 'react';
-import { DataContext } from '../DataContext';
 
 export default function PracticalInput() {
-    const {
-        practical: {
-            employer,
-            title,
-            description,
-            workStartDate,
-            workEndDate,
-            setTitle,
-            setEmployer,
-            setDescription,
-            setWorkStartDate,
-            setWorkEndDate,
-        },
-    } = useContext(DataContext);
-
     const handleChange = (e) => {
         const target = e.target;
 
