@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import InputForm from './InputForm';
 import Resume from './Resume';
 
 import { DataContext } from './DataContext';
 
 export default function App() {
+    const [educationData, setEducationData] = useContext(DataContext);
+    
     /* General */
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
