@@ -7,7 +7,7 @@ export default function Educational({
 }) {
     return (
         <fieldset className='flex flex-col flex-nowrap'>
-            <label htmlFor='school'>{school}</label>
+            <label htmlFor='school'>School Name</label>
             <input
                 type='text'
                 id='school'
@@ -16,7 +16,7 @@ export default function Educational({
                 onChange={handleChange}
                 value={school}
             />
-            <label htmlFor='study'>{study}</label>
+            <label htmlFor='study'>Degree</label>
             <input
                 type='text'
                 id='study'

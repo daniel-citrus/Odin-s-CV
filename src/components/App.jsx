@@ -37,6 +37,33 @@ export default function App() {
             case 'website':
                 setWebsite(target.value);
                 break;
+            case 'school':
+                setSchool(target.value);
+                break;
+            case 'study':
+                setStudy(target.value);
+                break;
+            case 'studyStartDate':
+                setStudyStartDate(target.value);
+                break;
+            case 'studyEndDate':
+                setStudyEndDate(target.value);
+                break;
+            case 'employer':
+                setEmployer(target.value);
+                break;
+            case 'title':
+                setTitle(target.value);
+                break;
+            case 'description':
+                setDescription(target.value);
+                break;
+            case 'workStartDate':
+                setWorkStartDate(target.value);
+                break;
+            case 'workEndDate':
+                setWorkEndDate(target.value);
+                break;
         }
     };
 

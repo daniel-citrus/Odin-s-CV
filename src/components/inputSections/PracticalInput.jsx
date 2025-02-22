@@ -8,9 +8,6 @@ export default function PracticalInput({
 }) {
     return (
         <fieldset className='flex flex-col flex-nowrap'>
-            <p>
-                {employer} {title} {description} {startDate} {endDate}
-            </p>
             <input
                 type='text'
                 id='employer'
