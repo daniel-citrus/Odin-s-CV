@@ -1,3 +1,5 @@
 export default function PracticalOutput() {
-    return <></>;
+    return <div className="practical">
+        
+    </div>
 }

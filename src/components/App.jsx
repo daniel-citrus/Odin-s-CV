@@ -10,16 +10,16 @@ export default function App() {
     const [phone, setPhone] = useState('');
     const [website, setWebsite] = useState('');
     /* Educational */
-    /* const [school, setSchool] = useState('');
+    const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
-    const [studyEndDate, setStudyEndDate] = useState(''); */
+    const [studyEndDate, setStudyEndDate] = useState('');
     /* Practical */
-    /* const [employer, setEmployer] = useState('');
+    const [employer, setEmployer] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [workStartDate, setWorkStartDate] = useState('');
-    const [workEndDate, setWorkEndDate] = useState(''); */
+    const [workEndDate, setWorkEndDate] = useState('');
 
     const handleChange = (e) => {
         const target = e.target;
@@ -45,7 +45,7 @@ export default function App() {
         email,
         phone,
         website,
-        /*         school,
+        school,
         study,
         studyStartDate,
         studyEndDate,
@@ -53,7 +53,7 @@ export default function App() {
         title,
         description,
         workStartDate,
-        workEndDate, */
+        workEndDate,
         handleChange,
     };
 
