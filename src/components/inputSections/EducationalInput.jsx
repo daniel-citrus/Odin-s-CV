@@ -1,17 +1,21 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
 import { v4 as uuid4 } from 'uuid';
+import InputListControls from './InputListControls';
 
 export default function EducationalInput() {
-    const { educationData, setEducationData } =
-        useContext(DataContext);
+    const { educationData, setEducationData } = useContext(DataContext);
 
     const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
     const [studyEndDate, setStudyEndDate] = useState('');
-    const [editing, setEditing] = useState(null);
-    const [prevData, setPrevData] = useState({});
+
+    const [editing, setEditing] =
+        useState(null); /* ID of educationData element that is being edited */
+    const [prevData, setPrevData] = useState(
+        {}
+    ); /* Remember previous data for cancelled edits */
 
     const handleChange = (e) => {
         const target = e.target;
@@ -101,25 +105,14 @@ export default function EducationalInput() {
             <ul className='educationList'>
                 {educationData.map((d) => {
                     return (
-                        <li className='educationDataLine' key={d.id}>
+                        <li className='educationDataListItem' key={d.id}>
                             {d.school}
-                            <button
-                                type='button'
-                                className={
-                                    editing === d.id ? 'bg-zinc-700' : ''
-                                }
-                                disabled={editing === d.id}
-                                onClick={() => handleEdit(d.id)}
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                type='button'
-                                onClick={() => handleDelete(d.id)}
-                            >
-                                Delete
-                            </button>
+                            <InputListControls
+                                editing={editing}
+                                id={d.id}
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            />
                         </li>
                     );
                 })}
