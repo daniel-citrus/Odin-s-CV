@@ -8,14 +8,14 @@ export default function InputListControls({
         <div className='inputListItemControls'>
             <button
                 type='button'
-                className={editing === id ? 'bg-zinc-700' : ''}
+                className={editing === id ?? 'bg-zinc-700'}
                 disabled={editing === id}
-                onClick={() => handleEdit(id)}
+                onClick={handleEdit}
             >
                 Edit
             </button>
 
-            <button type='button' onClick={() => handleDelete(id)}>
+            <button type='button' onClick={handleDelete}>
                 Delete
             </button>
         </div>

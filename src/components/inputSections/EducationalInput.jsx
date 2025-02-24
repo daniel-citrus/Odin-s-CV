@@ -110,8 +110,8 @@ export default function EducationalInput() {
                             <InputListControls
                                 editing={editing}
                                 id={d.id}
-                                handleEdit={handleEdit}
-                                handleDelete={handleDelete}
+                                handleEdit={() => handleEdit(d.id)}
+                                handleDelete={() => handleDelete(d.id)}
                             />
                         </li>
                     );

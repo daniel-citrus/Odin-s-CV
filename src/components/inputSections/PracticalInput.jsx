@@ -4,6 +4,7 @@ import InputListControls from './InputListControls';
 
 export default function PracticalInput() {
     const { practicalData, setPracticalData } = useContext(DataContext);
+    /* ID of data line that is currently being edited */
     const [editing, setEditing] = useState(null);
 
     const [employer, setEmployer] = useState('');
@@ -15,6 +16,16 @@ export default function PracticalInput() {
     const handleChange = (e) => {
         const target = e.target;
     };
+
+    const handleDelete = (id) => {
+        if (practicalData.size) {
+            return;
+        }
+
+        setPracticalData(practicalData.filter((pd) => pd.id !== id));
+    };
+
+    const handleEdit = (id) => {};
 
     return (
         <div className='practical'>
@@ -33,10 +44,10 @@ export default function PracticalInput() {
                                 </div>
                             </div>
                             <InputListControls
-                                editing={''}
-                                id={''}
-                                handleEdit={''}
-                                handleDelete={''}
+                                editing={editing}
+                                id={pd.id}
+                                handleEdit={() => handleEdit(pd.id)}
+                                handleDelete={() => handleDelete(pd.id)}
                             />
                         </li>
                     );
