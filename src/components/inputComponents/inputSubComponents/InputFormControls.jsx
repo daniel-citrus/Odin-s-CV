@@ -1,9 +1,11 @@
 export default function InputFormControls({
-    enableAdd,
-    enableSave,
-    enableCancel,
+    enableAdd = false,
+    enableSave = false,
+    enableClear = false,
+    enableCancel = false,
     handleAdd,
     handleSave,
+    handleClear,
     handleCancel,
 }) {
     return (
@@ -16,6 +18,11 @@ export default function InputFormControls({
             {enableSave && (
                 <button type='button' onClick={handleSave}>
                     Save
+                </button>
+            )}
+            {enableClear && (
+                <button type='button' onClick={handleClear}>
+                    Clear
                 </button>
             )}
             {enableCancel && (
