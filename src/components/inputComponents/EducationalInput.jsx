@@ -9,12 +9,9 @@ export default function EducationalInput() {
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
     const [studyEndDate, setStudyEndDate] = useState('');
-
     const [editing, setEditing] =
         useState(null); /* ID of educationData element that is being edited */
-    const [prevData, setPrevData] = useState(
-        {}
-    ); /* Remember previous data for cancelled edits */
+    const [prevData, setPrevData] = useState({}); // Remember previous data for cancelled edits
 
     const handleChange = (e) => {
         const target = e.target;

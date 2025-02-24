@@ -1,6 +1,6 @@
-import GeneralInput from './inputSections/GeneralInput';
-import EducationalOutput from './resumeSections/EducationalOutput';
-import PracticalOutput from './resumeSections/PracticalOutput';
+import GeneralInput from '../inputComponents/GeneralInput';
+import EducationalOutput from './EducationalOutput';
+import PracticalOutput from './PracticalOutput';
 
 export default function Resume() {
     return (

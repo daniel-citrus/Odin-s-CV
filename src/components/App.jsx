@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import InputFields from './InputFields';
-import Resume from './Resume';
+import InputForm from './inputComponents/InputForm';
+import Resume from './outputComponents/OutputForm';
 import { DataContext } from './DataContext';
 
 export default function App() {
@@ -60,7 +60,7 @@ export default function App() {
                 setPracticalData,
             }}
         >
-            <InputFields />
+            <InputForm />
             <Resume />
         </DataContext.Provider>
     );
