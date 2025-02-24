@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
-import InputListControls from './InputListControls';
+import InputListControls from './inputControls/InputListControls';
 
 export default function PracticalInput() {
     const { practicalData, setPracticalData } = useContext(DataContext);
@@ -15,7 +15,52 @@ export default function PracticalInput() {
 
     const handleChange = (e) => {
         const target = e.target;
+        const value = target.value;
+
+        switch (target.name) {
+            case 'employer':
+                setEmployer(value);
+                break;
+            case 'title':
+                setTitle(value);
+                break;
+            case 'description':
+                setDescription(value);
+                break;
+            case 'workStartDate':
+                setWorkStartDate(value);
+                break;
+            case 'workEndDate':
+                setWorkEndDate(value);
+                break;
+        }
+
+        if (editing === null) {
+            return false;
+        }
+
+        const updatedData = updatePracticalData(editing, {
+            [target.name]: value,
+        });
+
+        setPracticalData(updatedData);
     };
+
+    /**
+     *
+     * @param {integer} editing
+     * @param {object} newData - object containing updated data property
+     * @returns
+     */
+    function updatePracticalData(editing, newData) {
+        return practicalData.map((pd) => {
+            if (pd.id === editing) {
+                return { ...pd, ...newData };
+            } else {
+                return pd;
+            }
+        });
+    }
 
     const handleDelete = (id) => {
         if (practicalData.size) {
@@ -25,7 +70,20 @@ export default function PracticalInput() {
         setPracticalData(practicalData.filter((pd) => pd.id !== id));
     };
 
-    const handleEdit = (id) => {};
+    const handleEdit = (id) => {
+        const data = practicalData.find((pd) => pd.id === id);
+
+        if (data === undefined) {
+            return;
+        }
+
+        setEditing(id);
+        setEmployer(data.employer);
+        setTitle(data.title);
+        setDescription(data.description);
+        setWorkStartDate(data.workStartDate);
+        setWorkEndDate(data.workEndDate);
+    };
 
     return (
         <div className='practical'>
@@ -33,7 +91,7 @@ export default function PracticalInput() {
                 {practicalData.map((pd) => {
                     return (
                         <li key={pd.id}>
-                            <div className='information'>
+                            <div className='informagtion'>
                                 <div className='employer'>{pd.employer}</div>
                                 <div className='title'>{pd.title}</div>
                                 <div className='workStartDate'>
@@ -53,7 +111,7 @@ export default function PracticalInput() {
                     );
                 })}
             </ul>
-            {/* <form className='flex flex-col flex-nowrap'>
+            <form className='flex flex-col flex-nowrap'>
                 <label htmlFor='employer'>Employer</label>
                 <input
                     type='text'
@@ -100,7 +158,7 @@ export default function PracticalInput() {
                     value={workEndDate}
                     onChange={handleChange}
                 />
-            </form> */}
+            </form>
         </div>
     );
 }

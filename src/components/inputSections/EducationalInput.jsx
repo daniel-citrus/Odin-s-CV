@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
 import { v4 as uuid4 } from 'uuid';
-import InputListControls from './InputListControls';
+import InputListControls from './inputControls/InputListControls';
 
 export default function EducationalInput() {
     const { educationData, setEducationData } = useContext(DataContext);
@@ -19,19 +19,20 @@ export default function EducationalInput() {
 
     const handleChange = (e) => {
         const target = e.target;
+        const value = target.value;
 
         switch (target.name) {
             case 'school':
-                setSchool(target.value);
+                setSchool(value);
                 break;
             case 'study':
-                setStudy(target.value);
+                setStudy(value);
                 break;
             case 'studyStartDate':
-                setStudyStartDate(target.value);
+                setStudyStartDate(value);
                 break;
             case 'studyEndDate':
-                setStudyEndDate(target.value);
+                setStudyEndDate(value);
                 break;
         }
 
@@ -43,7 +44,7 @@ export default function EducationalInput() {
             if (cd.id === editing) {
                 return {
                     ...cd,
-                    [target.name]: target.value,
+                    [target.name]: value,
                 };
             } else {
                 return cd;
