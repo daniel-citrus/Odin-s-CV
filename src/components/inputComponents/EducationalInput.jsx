@@ -1,17 +1,68 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
+import { v4 as uuid4 } from 'uuid';
+
 import InputListControls from './inputSubComponents/InputListControls';
+import InputFormControls from './inputSubComponents/InputFormControls';
+import InputDataList from './inputSubComponents/DataList';
 
 export default function EducationalInput() {
     const { educationData, setEducationData } = useContext(DataContext);
 
+    const [prevData, setPrevData] = useState({}); // Store previous data incase of edit cancel
+
+    const [mode, setMode] = useState('idle'); // 'idle', 'add', or 'edit'
     const [school, setSchool] = useState('');
     const [study, setStudy] = useState('');
     const [studyStartDate, setStudyStartDate] = useState('');
     const [studyEndDate, setStudyEndDate] = useState('');
-    const [editing, setEditing] =
-        useState(null); /* ID of educationData element that is being edited */
-    const [prevData, setPrevData] = useState({}); // Remember previous data for cancelled edits
+
+    const handleAdd = () => {
+        const newID = uuid4();
+
+        setEducationData([
+            ...educationData,
+            {
+                id: newID,
+                mode,
+                school,
+                study,
+                studyStartDate,
+                studyEndDate,
+            },
+        ]);
+
+        clearForm();
+    };
+
+    const handleAddNewData = () => {
+        clearForm();
+        setPrevData({});
+        setMode('add');
+    };
+
+    const handleClear = () => {
+        clearForm();
+
+        if (prevData === null) {
+            return;
+        }
+
+        setEducationData(
+            educationData.map((ed) => {
+                if (ed.id === prevData.id) {
+                    return {
+                        id: ed.id,
+                        school: '',
+                        study: '',
+                        studyStartDate: '',
+                        studyEndDate: '',
+                    };
+                }
+                return ed;
+            })
+        );
+    };
 
     const handleChange = (e) => {
         const target = e.target;
@@ -32,12 +83,12 @@ export default function EducationalInput() {
                 break;
         }
 
-        if (editing === null) {
+        if (mode !== 'edit') {
             return;
         }
 
         const newData = educationData.map((cd) => {
-            if (cd.id === editing) {
+            if (cd.id === prevData.id) {
                 return {
                     ...cd,
                     [target.name]: value,
@@ -52,21 +103,30 @@ export default function EducationalInput() {
 
     const handleCancel = () => {
         const newEducationData = educationData.map((cd) => {
-            if (cd.id === editing) {
+            if (cd.id === prevData.id) {
                 return prevData;
             } else {
                 return cd;
             }
         });
 
-        setEditing(null);
+        setMode('idle');
         setPrevData({});
         setEducationData(newEducationData);
-        updateFormValues({});
+        clearForm();
     };
 
     const handleDelete = (id) => {
         setEducationData(educationData.filter((d) => id != d.id));
+
+        // deleting data that is currently being edited
+        if (id !== prevData.id) {
+            return;
+        }
+
+        setMode('idle');
+        setPrevData({});
+        clearForm();
     };
 
     const handleEdit = (id) => {
@@ -80,85 +140,109 @@ export default function EducationalInput() {
             ...data,
         });
 
-        setEditing(id);
-        updateFormValues(data);
+        setMode('edit');
+        setSchool(data.school);
+        setStudy(data.study);
+        setStudyStartDate(data.studyStartDate);
+        setStudyEndDate(data.studyEndDate);
     };
 
-    function updateFormValues({
-        school = '',
-        study = '',
-        studyStartDate = '',
-        studyEndDate = '',
-    }) {
-        setSchool(school);
-        setStudy(study);
-        setStudyStartDate(studyStartDate);
-        setStudyEndDate(studyEndDate);
+    const handleSave = () => {
+        setMode('idle');
+        clearForm();
+
+        setEducationData(
+            educationData.map((ed) => {
+                if (ed.id === prevData.id) {
+                    return {
+                        id: ed.id,
+                        school,
+                        study,
+                        studyStartDate,
+                        studyEndDate,
+                    };
+                }
+
+                return ed;
+            })
+        );
+        setPrevData({});
+    };
+
+    function clearForm() {
+        setSchool('');
+        setStudy('');
+        setStudyStartDate('');
+        setStudyEndDate('');
     }
 
     return (
         <div className='education'>
             <h2>Education</h2>
-            <ul className='educationList'>
+            <InputDataList handleAddNewData={handleAddNewData}>
                 {educationData.map((d) => {
                     return (
                         <li className='educationDataListItem' key={d.id}>
                             {d.school}
                             <InputListControls
-                                editing={editing}
-                                id={d.id}
+                                disableEdit={d.id === prevData.id}
                                 handleEdit={() => handleEdit(d.id)}
                                 handleDelete={() => handleDelete(d.id)}
                             />
                         </li>
                     );
                 })}
-            </ul>
-            <form className='flex flex-col flex-nowrap'>
-                <label htmlFor='school'>School Name</label>
-                <input
-                    type='text'
-                    id='school'
-                    name='school'
-                    placeholder='School Name'
-                    value={school}
-                    onChange={handleChange}
-                />
-                <label htmlFor='study'>Degree</label>
-                <input
-                    type='text'
-                    id='study'
-                    name='study'
-                    value={study}
-                    placeholder='Title of Study'
-                    onChange={handleChange}
-                />
-                <div className='schoolDate flex flex-col flex-nowrap'>
-                    <label htmlFor='studyStartDate'>Start Date</label>
+            </InputDataList>
+            {mode !== 'idle' && (
+                <form className='flex flex-col flex-nowrap'>
+                    <label htmlFor='school'>School Name</label>
                     <input
-                        type='date'
-                        name='studyStartDate'
-                        id='studyStartDate'
-                        value={studyStartDate}
+                        type='text'
+                        id='school'
+                        name='school'
+                        placeholder='School Name'
+                        value={school}
                         onChange={handleChange}
                     />
-                    <label htmlFor='studyEndDate'>End Date</label>
+                    <label htmlFor='study'>Degree</label>
                     <input
-                        type='date'
-                        name='studyEndDate'
-                        id='studyEndDate'
-                        value={studyEndDate}
+                        type='text'
+                        id='study'
+                        name='study'
+                        value={study}
+                        placeholder='Title of Study'
                         onChange={handleChange}
                     />
-                </div>
-                {editing !== null ? (
-                    <button type='button' onClick={handleCancel}>
-                        Cancel
-                    </button>
-                ) : (
-                    ''
-                )}
-            </form>
+                    <div className='schoolDate flex flex-col flex-nowrap'>
+                        <label htmlFor='studyStartDate'>Start Date</label>
+                        <input
+                            type='date'
+                            name='studyStartDate'
+                            id='studyStartDate'
+                            value={studyStartDate}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor='studyEndDate'>End Date</label>
+                        <input
+                            type='date'
+                            name='studyEndDate'
+                            id='studyEndDate'
+                            value={studyEndDate}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <InputFormControls
+                        enableAdd={mode === 'add'}
+                        enableCancel={mode !== 'idle'}
+                        enableClear={mode !== 'idle'}
+                        enableSave={mode === 'edit'}
+                        handleAdd={handleAdd}
+                        handleCancel={handleCancel}
+                        handleClear={handleClear}
+                        handleSave={handleSave}
+                    />
+                </form>
+            )}
         </div>
     );
 }

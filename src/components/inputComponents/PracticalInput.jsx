@@ -17,7 +17,7 @@ export default function PracticalInput() {
     const [workStartDate, setWorkStartDate] = useState('');
     const [workEndDate, setWorkEndDate] = useState('');
 
-    const addNewData = () => {
+    const handleAddNewData = () => {
         clearForm();
         setMode('add');
     };
@@ -112,11 +112,15 @@ export default function PracticalInput() {
     }
 
     const handleDelete = (id) => {
-        if (practicalData.size) {
+        setPracticalData(practicalData.filter((pd) => pd.id !== id));
+
+        if (id !== prevData.id) {
             return;
         }
 
-        setPracticalData(practicalData.filter((pd) => pd.id !== id));
+        setMode('idle');
+        setPrevData({});
+        clearForm();
     };
 
     const handleEdit = (id) => {
@@ -137,7 +141,7 @@ export default function PracticalInput() {
 
     return (
         <div className='practical'>
-            <InputDataList addNewData={addNewData}>
+            <InputDataList handleAddNewData={handleAddNewData}>
                 {practicalData.map((pd) => {
                     return (
                         <li key={pd.id}>
