@@ -1,6 +1,5 @@
 export default function InputListControls({
-    disable,
-    currentlyEditingID,
+    disableEdit,
     handleEdit,
     handleDelete,
 }) {
@@ -8,8 +7,8 @@ export default function InputListControls({
         <div className='inputListItemControls'>
             <button
                 type='button'
-                className={disable ? 'bg-zinc-700' : ''}
-                disabled={disable}
+                className={disableEdit ? 'bg-zinc-700' : ''}
+                disabled={disableEdit}
                 onClick={handleEdit}
             >
                 Edit

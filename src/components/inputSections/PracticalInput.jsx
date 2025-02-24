@@ -1,22 +1,58 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
-import InputListControls from './inputControls/InputListControls';
-import InputFormControls from './inputControls/InputFormControls';
+import { v4 as uuid4 } from 'uuid';
+
+import InputListControls from './inputSubComponents/InputListControls';
+import InputFormControls from './inputSubComponents/InputFormControls';
+import InputDataList from './inputSubComponents/InputDataList';
 
 export default function PracticalInput() {
     const { practicalData, setPracticalData } = useContext(DataContext);
 
-    const [prevData, setPrevData] = useState(
-        {}
-    ); /* Store previous data incase of edit cancel */
-
-    const [mode, setMode] = useState('idle'); /* 'idle', 'add', or 'edit' */
-
+    const [prevData, setPrevData] = useState({}); // Store previous data incase of edit cancel
+    const [mode, setMode] = useState('idle'); // 'idle', 'add', or 'edit'
     const [employer, setEmployer] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [workStartDate, setWorkStartDate] = useState('');
     const [workEndDate, setWorkEndDate] = useState('');
+
+    const addNewData = () => {
+        clearForm();
+        setMode('add');
+    };
+
+    const handleAdd = () => {
+        const newID = uuid4();
+
+        setMode('idle');
+        setPracticalData([
+            ...practicalData,
+            {
+                id: newID,
+                employer,
+                title,
+                description,
+                workStartDate,
+                workEndDate,
+            },
+        ]);
+
+        clearForm();
+    };
+
+    const handleSave = () => {
+        setMode('idle');
+        setPrevData({});
+        clearForm();
+    };
+
+    const handleCancel = () => {
+        setPrevData({});
+        setMode('idle');
+        clearForm();
+        setPracticalData(updatePracticalData(prevData.id, prevData));
+    };
 
     const handleChange = (e) => {
         const target = e.target;
@@ -51,8 +87,16 @@ export default function PracticalInput() {
         setPracticalData(updatedData);
     };
 
+    function clearForm() {
+        setEmployer('');
+        setTitle('');
+        setDescription('');
+        setWorkStartDate('');
+        setWorkEndDate('');
+    }
+
     /**
-     *
+     * Replace existing data with newData using data id
      * @param {integer} id - ID of data being updated
      * @param {object} newData - object containing updated data property
      * @returns
@@ -82,7 +126,7 @@ export default function PracticalInput() {
             return;
         }
 
-        setPrevData({ ...data });
+        setPrevData({ ...data }); // remember previous data
         setMode('edit');
         setEmployer(data.employer);
         setTitle(data.title);
@@ -93,7 +137,7 @@ export default function PracticalInput() {
 
     return (
         <div className='practical'>
-            <ul className='practicalDataList'>
+            <InputDataList addNewData={addNewData}>
                 {practicalData.map((pd) => {
                     return (
                         <li key={pd.id}>
@@ -108,63 +152,74 @@ export default function PracticalInput() {
                                 </div>
                             </div>
                             <InputListControls
-                                disable={pd.id === prevData.id}
+                                disableEdit={pd.id === prevData.id}
                                 handleEdit={() => handleEdit(pd.id)}
                                 handleDelete={() => handleDelete(pd.id)}
                             />
                         </li>
                     );
                 })}
-            </ul>
-            <form className='flex flex-col flex-nowrap'>
-                <label htmlFor='employer'>Employer</label>
-                <input
-                    type='text'
-                    id='employer'
-                    name='employer'
-                    placeholder='Employer'
-                    value={employer}
-                    onChange={handleChange}
-                />
-                <label htmlFor='title'>Title</label>
-                <input
-                    type='text'
-                    id='title'
-                    name='title'
-                    placeholder='Job Title'
-                    value={title}
-                    onChange={handleChange}
-                />
-                <label htmlFor='description'>Job Description</label>
-                <textarea
-                    type='text'
-                    id='description'
-                    name='description'
-                    placeholder='Job Description'
-                    maxLength='500'
-                    value={description}
-                    onChange={handleChange}
-                />
-                <label htmlFor='workStartDate'>Start Date</label>
-                <input
-                    type='date'
-                    id='workStartDate'
-                    name='workStartDate'
-                    placeholder='Start Date'
-                    value={workStartDate}
-                    onChange={handleChange}
-                />
-                <label htmlFor='workEndDate'>End Date</label>
-                <input
-                    type='date'
-                    id='workEndDate'
-                    name='workEndDate'
-                    placeholder='End Date'
-                    value={workEndDate}
-                    onChange={handleChange}
-                />
-            </form>
-            <InputFormControls />
+            </InputDataList>
+            {mode === 'idle' ? (
+                ''
+            ) : (
+                <form className='flex flex-col flex-nowrap'>
+                    <label htmlFor='employer'>Employer</label>
+                    <input
+                        type='text'
+                        id='employer'
+                        name='employer'
+                        placeholder='Employer'
+                        value={employer}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor='title'>Title</label>
+                    <input
+                        type='text'
+                        id='title'
+                        name='title'
+                        placeholder='Job Title'
+                        value={title}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor='description'>Job Description</label>
+                    <textarea
+                        type='text'
+                        id='description'
+                        name='description'
+                        placeholder='Job Description'
+                        maxLength='500'
+                        value={description}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor='workStartDate'>Start Date</label>
+                    <input
+                        type='date'
+                        id='workStartDate'
+                        name='workStartDate'
+                        placeholder='Start Date'
+                        value={workStartDate}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor='workEndDate'>End Date</label>
+                    <input
+                        type='date'
+                        id='workEndDate'
+                        name='workEndDate'
+                        placeholder='End Date'
+                        value={workEndDate}
+                        onChange={handleChange}
+                    />
+                </form>
+            )}
+            <InputFormControls
+                enableAdd={mode === 'add'}
+                enableSave={mode === 'edit'}
+                enableCancel={mode !== 'idle'}
+                handleAdd={handleAdd}
+                handleSave={handleSave}
+                handleCancel={handleCancel}
+            />
         </div>
     );
 }

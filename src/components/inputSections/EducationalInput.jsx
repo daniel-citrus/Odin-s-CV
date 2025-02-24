@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
-import { v4 as uuid4 } from 'uuid';
-import InputListControls from './inputControls/InputListControls';
+import InputListControls from './inputSubComponents/InputListControls';
 
 export default function EducationalInput() {
     const { educationData, setEducationData } = useContext(DataContext);
