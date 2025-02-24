@@ -1,11 +1,16 @@
 import { useContext, useState } from 'react';
 import { DataContext } from '../DataContext';
 import InputListControls from './inputControls/InputListControls';
+import InputFormControls from './inputControls/InputFormControls';
 
 export default function PracticalInput() {
     const { practicalData, setPracticalData } = useContext(DataContext);
-    /* ID of data line that is currently being edited */
-    const [editing, setEditing] = useState(null);
+
+    const [prevData, setPrevData] = useState(
+        {}
+    ); /* Store previous data incase of edit cancel */
+
+    const [mode, setMode] = useState('idle'); /* 'idle', 'add', or 'edit' */
 
     const [employer, setEmployer] = useState('');
     const [title, setTitle] = useState('');
@@ -35,11 +40,11 @@ export default function PracticalInput() {
                 break;
         }
 
-        if (editing === null) {
+        if (mode === null) {
             return false;
         }
 
-        const updatedData = updatePracticalData(editing, {
+        const updatedData = updatePracticalData(prevData.id, {
             [target.name]: value,
         });
 
@@ -48,13 +53,13 @@ export default function PracticalInput() {
 
     /**
      *
-     * @param {integer} editing
+     * @param {integer} id - ID of data being updated
      * @param {object} newData - object containing updated data property
      * @returns
      */
-    function updatePracticalData(editing, newData) {
+    function updatePracticalData(id, newData) {
         return practicalData.map((pd) => {
-            if (pd.id === editing) {
+            if (pd.id === id) {
                 return { ...pd, ...newData };
             } else {
                 return pd;
@@ -77,7 +82,8 @@ export default function PracticalInput() {
             return;
         }
 
-        setEditing(id);
+        setPrevData({ ...data });
+        setMode('edit');
         setEmployer(data.employer);
         setTitle(data.title);
         setDescription(data.description);
@@ -102,8 +108,7 @@ export default function PracticalInput() {
                                 </div>
                             </div>
                             <InputListControls
-                                editing={editing}
-                                id={pd.id}
+                                disable={pd.id === prevData.id}
                                 handleEdit={() => handleEdit(pd.id)}
                                 handleDelete={() => handleDelete(pd.id)}
                             />
@@ -159,6 +164,7 @@ export default function PracticalInput() {
                     onChange={handleChange}
                 />
             </form>
+            <InputFormControls />
         </div>
     );
 }
