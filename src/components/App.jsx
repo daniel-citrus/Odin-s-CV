@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import InputForm from './inputComponents/InputForm';
-import Resume from './outputComponents/OutputForm';
+import OutputForm from './outputComponents/OutputForm';
 import { DataContext } from './DataContext';
+import './outputComponents/test';
 
 export default function App() {
     const [generalData, setGeneralData] = useState({
@@ -61,7 +62,7 @@ export default function App() {
             }}
         >
             <InputForm />
-            <Resume />
+            <OutputForm />
         </DataContext.Provider>
     );
 }
