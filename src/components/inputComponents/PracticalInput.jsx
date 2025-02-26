@@ -111,6 +111,32 @@ export default function PracticalInput() {
         });
     }
 
+    const handleClear = () => {
+        const data = practicalData.find((pd) => pd.id === prevData.id);
+
+        if (data === undefined) {
+            return;
+        }
+
+        clearForm();
+
+        setPracticalData(
+            practicalData.map((pd) => {
+                if (pd.id === data.id) {
+                    return {
+                        id: pd.id,
+                        employer: '',
+                        title: '',
+                        description: '',
+                        workStartDate: '',
+                        workEndDate: '',
+                    };
+                }
+                return pd;
+            })
+        );
+    };
+
     const handleDelete = (id) => {
         setPracticalData(practicalData.filter((pd) => pd.id !== id));
 
@@ -220,9 +246,11 @@ export default function PracticalInput() {
                 enableAdd={mode === 'add'}
                 enableSave={mode === 'edit'}
                 enableCancel={mode !== 'idle'}
+                enableClear={mode != 'idle'}
                 handleAdd={handleAdd}
                 handleSave={handleSave}
                 handleCancel={handleCancel}
+                handleClear={handleClear}
             />
         </div>
     );

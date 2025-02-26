@@ -2,7 +2,6 @@ import { useState } from 'react';
 import InputForm from './inputComponents/InputForm';
 import OutputForm from './outputComponents/OutputForm';
 import { DataContext } from './DataContext';
-import './outputComponents/test';
 
 export default function App() {
     const [generalData, setGeneralData] = useState({
