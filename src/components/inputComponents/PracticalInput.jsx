@@ -5,6 +5,7 @@ import { v4 as uuid4 } from 'uuid';
 import InputListControls from './inputSubComponents/InputListControls';
 import InputFormControls from './inputSubComponents/InputFormControls';
 import InputDataList from './inputSubComponents/DataList';
+import InputFieldCards from './InputFieldCards';
 
 export default function PracticalInput() {
     const { practicalData, setPracticalData } = useContext(DataContext);
@@ -166,7 +167,7 @@ export default function PracticalInput() {
     };
 
     return (
-        <div className='practical'>
+        <InputFieldCards cardClass={'practical'}>
             <InputDataList handleAddNewData={handleAddNewData}>
                 {practicalData.map((pd) => {
                     return (
@@ -252,6 +253,6 @@ export default function PracticalInput() {
                 handleCancel={handleCancel}
                 handleClear={handleClear}
             />
-        </div>
+        </InputFieldCards>
     );
 }

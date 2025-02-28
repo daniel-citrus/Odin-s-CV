@@ -9,7 +9,7 @@ export default function OutputForm() {
             {/* <GeneralOutput />
             <EducationalOutput />
             <PracticalOutput /> */}
-            {/* <PDFWindow /> */}
+            <PDFWindow />
         </div>
     );
 }

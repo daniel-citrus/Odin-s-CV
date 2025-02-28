@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { DataContext } from '../DataContext';
 import InputFormControls from './inputSubComponents/InputFormControls';
+import InputFieldCards from './InputFieldCards';
 
 export default function GeneralInput() {
     const { generalData, setGeneralData } = useContext(DataContext);
@@ -42,9 +43,10 @@ export default function GeneralInput() {
     };
 
     return (
-        <div className='general'>
+        <InputFieldCards cardClass={'general'}>
             <form className='flex flex-col flex-nowrap '>
                 <h2>Personal Information</h2>
+                <p>How can potential employers reach you?</p>
                 <label htmlFor='name'>Name</label>
                 <input
                     type='text'
@@ -85,6 +87,6 @@ export default function GeneralInput() {
                 />
             </form>
             <InputFormControls enableClear={true} handleClear={handleClear} />
-        </div>
+        </InputFieldCards>
     );
 }

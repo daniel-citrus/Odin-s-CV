@@ -5,6 +5,7 @@ import { v4 as uuid4 } from 'uuid';
 import InputListControls from './inputSubComponents/InputListControls';
 import InputFormControls from './inputSubComponents/InputFormControls';
 import InputDataList from './inputSubComponents/DataList';
+import InputFieldCards from './InputFieldCards';
 
 export default function EducationalInput() {
     const { educationData, setEducationData } = useContext(DataContext);
@@ -177,7 +178,7 @@ export default function EducationalInput() {
     }
 
     return (
-        <div className='education'>
+        <InputFieldCards cardClass={'education'}>
             <h2>Education</h2>
             <InputDataList handleAddNewData={handleAddNewData}>
                 {educationData.map((d) => {
@@ -243,6 +244,6 @@ export default function EducationalInput() {
                     />
                 </form>
             )}
-        </div>
+        </InputFieldCards>
     );
 }

@@ -50,18 +50,22 @@ export default function App() {
     ]);
 
     return (
-        <DataContext.Provider
-            value={{
-                educationData,
-                setEducationData,
-                generalData,
-                setGeneralData,
-                practicalData,
-                setPracticalData,
-            }}
-        >
-            <InputForm />
-            <OutputForm />
-        </DataContext.Provider>
+        <div className='bg-amber-300 min-h-screen'>
+            <DataContext.Provider
+                value={{
+                    educationData,
+                    setEducationData,
+                    generalData,
+                    setGeneralData,
+                    practicalData,
+                    setPracticalData,
+                }}
+            >
+                <div className='bg-stone-200 m-2'>
+                    <InputForm />
+                    <OutputForm />
+                </div>
+            </DataContext.Provider>
+        </div>
     );
 }
