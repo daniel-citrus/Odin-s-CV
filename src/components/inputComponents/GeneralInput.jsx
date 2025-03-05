@@ -44,7 +44,10 @@ export default function GeneralInput() {
 
     return (
         <InputFieldCards cardClass={'general'}>
-            <form className='flex flex-col flex-nowrap '>
+            <form
+                className=''
+                onSubmit={(e) => e.preventDefault()}
+            >
                 <h2>Personal Information</h2>
                 <p>How can potential employers reach you?</p>
                 <label htmlFor='name'>Name</label>

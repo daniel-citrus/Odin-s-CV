@@ -50,7 +50,7 @@ export default function App() {
     ]);
 
     return (
-        <div className='bg-amber-300'>
+        <div className='p-3'>
             <DataContext.Provider
                 value={{
                     educationData,
@@ -61,6 +61,7 @@ export default function App() {
                     setPracticalData,
                 }}
             >
+                <h1>Resume Generator</h1>
                 <div className=''>
                     <InputForm />
                     <OutputForm className='h-full' />

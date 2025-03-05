@@ -4,7 +4,7 @@ import { v4 as uuid4 } from 'uuid';
 
 import InputListControls from './inputSubComponents/InputListControls';
 import InputFormControls from './inputSubComponents/InputFormControls';
-import InputDataList from './inputSubComponents/DataList';
+import InputDataList from './inputSubComponents/InputDataList';
 import InputFieldCards from './InputFieldCards';
 
 export default function PracticalInput() {
@@ -194,7 +194,7 @@ export default function PracticalInput() {
             {mode === 'idle' ? (
                 ''
             ) : (
-                <form className='flex flex-col flex-nowrap'>
+                <form className=''>
                     <label htmlFor='employer'>Employer</label>
                     <input
                         type='text'

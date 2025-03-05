@@ -5,7 +5,7 @@ import PracticalOutput from './PracticalOutput';
 
 export default function OutputForm() {
     return (
-        <div className='resume flex flex-col flex-nowrap gap-10 border border-solid border-amber-600'>
+        <div className='resume'>
             {/* <GeneralOutput />
             <EducationalOutput />
             <PracticalOutput /> */}

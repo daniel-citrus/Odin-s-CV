@@ -9,7 +9,7 @@ export default function GeneralOutput() {
     return (
         <div className='general'>
             <div className='name'>{name}</div>
-            <ul className='generalInfo flex flex-row flex-nowrap gap-5'>
+            <ul className='generalInfo'>
                 <li className='email'>{email}</li>
                 <li className='phone'>{phone}</li>
                 <li className='website'>{website}</li>

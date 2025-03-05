@@ -4,7 +4,7 @@ import { v4 as uuid4 } from 'uuid';
 
 import InputListControls from './inputSubComponents/InputListControls';
 import InputFormControls from './inputSubComponents/InputFormControls';
-import InputDataList from './inputSubComponents/DataList';
+import InputDataList from './inputSubComponents/InputDataList';
 import InputFieldCards from './InputFieldCards';
 
 export default function EducationalInput() {
@@ -195,7 +195,7 @@ export default function EducationalInput() {
                 })}
             </InputDataList>
             {mode !== 'idle' && (
-                <form className='flex flex-col flex-nowrap'>
+                <form className=''>
                     <label htmlFor='school'>School Name</label>
                     <input
                         type='text'
@@ -214,7 +214,7 @@ export default function EducationalInput() {
                         placeholder='Title of Study'
                         onChange={handleChange}
                     />
-                    <div className='schoolDate flex flex-col flex-nowrap'>
+                    <div className='schoolDate'>
                         <label htmlFor='studyStartDate'>Start Date</label>
                         <input
                             type='date'
