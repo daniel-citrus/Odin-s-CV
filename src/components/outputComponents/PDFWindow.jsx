@@ -11,9 +11,9 @@ export default function PDFWindow() {
     resume.text(educationData[0].school, 10, 10);
 
     return (
-        <div className='pdfWindow'>
+        <div className='pdfWindow flex h-screen flex-col'>
             <iframe
-                className='w-full'
+                className='flex-1 text-lg h-full '
                 src={resume.output('datauristring')}
             ></iframe>
         </div>

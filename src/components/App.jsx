@@ -50,7 +50,7 @@ export default function App() {
     ]);
 
     return (
-        <div className='bg-amber-300 min-h-screen'>
+        <div className='bg-amber-300'>
             <DataContext.Provider
                 value={{
                     educationData,
@@ -61,9 +61,9 @@ export default function App() {
                     setPracticalData,
                 }}
             >
-                <div className='bg-stone-200 m-2'>
+                <div className=''>
                     <InputForm />
-                    <OutputForm />
+                    <OutputForm className='h-full' />
                 </div>
             </DataContext.Provider>
         </div>
