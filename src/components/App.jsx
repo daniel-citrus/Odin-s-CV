@@ -50,7 +50,7 @@ export default function App() {
     ]);
 
     return (
-        <div className='p-3'>
+        <div className='p-2'>
             <DataContext.Provider
                 value={{
                     educationData,
