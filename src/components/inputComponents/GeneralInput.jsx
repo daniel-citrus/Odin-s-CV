@@ -45,7 +45,7 @@ export default function GeneralInput() {
     return (
         <InputFieldCards cardClass={'general'}>
             <form
-                className=''
+                className='flex flex-col'
                 onSubmit={(e) => e.preventDefault()}
             >
                 <h2>Personal Information</h2>

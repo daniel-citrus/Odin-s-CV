@@ -1,3 +1,5 @@
+import Button from './Button';
+
 export default function InputListControls({
     disableEdit,
     handleEdit,
@@ -5,18 +7,11 @@ export default function InputListControls({
 }) {
     return (
         <div className='inputListItemControls'>
-            <button
-                type='button'
-                className={disableEdit ? 'bg-zinc-700' : ''}
-                disabled={disableEdit}
-                onClick={handleEdit}
-            >
+            <Button disable={disableEdit} handler={handleEdit}>
                 Edit
-            </button>
+            </Button>
 
-            <button type='button' onClick={handleDelete}>
-                Delete
-            </button>
+            <Button handler={handleDelete}>Delete</Button>
         </div>
     );
 }

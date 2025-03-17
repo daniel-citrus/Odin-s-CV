@@ -11,10 +11,10 @@ export default function PDFWindow() {
     resume.text(educationData[0].school, 10, 10);
 
     return (
-        <div className='pdfWindow'>
+        <div className='pdfWindow w-auto h-screen sm:aspect-auto'>
             <iframe
-                className=''
-                src={resume.output('datauristring') + '#zoom=70'}
+                className='w-full h-full'
+                src={resume.output('datauristring') + '#zoom=80'}
                 height='100%'
                 width='100%'
             ></iframe>

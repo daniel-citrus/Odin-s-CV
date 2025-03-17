@@ -1,14 +1,10 @@
-@import 'tailwindcss';
+@use 'tailwindcss';
 
 :root {
     --color-1: #5d5fef; // indigo-500
-    --color-1: #ffffff; // white
-    --color-1: #dadada; // zinc-300
+    --color-2: #ffffff; // white
+    --color-3: #dadada; // zinc-300
     /* https://s3-figma-hubfile-images-production.figma.com/hub/file/carousel/img/c8d0874ba3da99c9dea9632c705715b369405eb4 */
-}
-
-* {
-    color: var(--color-4);
 }
 
 .inputFields {
