@@ -183,7 +183,10 @@ export default function EducationalInput() {
             <InputDataList handleAddNewData={handleAddNewData}>
                 {educationData.map((d) => {
                     return (
-                        <li className='educationDataListItem' key={d.id}>
+                        <li
+                            className='educationDataListItem flex flex-row justify-between'
+                            key={d.id}
+                        >
                             {d.school}
                             <InputListControls
                                 disableEdit={d.id === prevData.id}
@@ -201,7 +204,7 @@ export default function EducationalInput() {
                         type='text'
                         id='school'
                         name='school'
-                        placeholder='School Name'
+                        placeholder=''
                         value={school}
                         onChange={handleChange}
                     />
@@ -211,7 +214,7 @@ export default function EducationalInput() {
                         id='study'
                         name='study'
                         value={study}
-                        placeholder='Title of Study'
+                        placeholder=''
                         onChange={handleChange}
                     />
                     <div className='schoolDate'>

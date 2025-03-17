@@ -11,10 +11,10 @@ export default function InputFormControls({
     handleCancel,
 }) {
     return (
-        <div className='inputFormButtons'>
+        <div className='inputFormButtons flex flex-col'>
             {enableAdd && <Button handler={handleAdd}>Add</Button>}
             {enableSave && <Button handler={handleSave}>Save</Button>}
-            {enableClear && <Button onClick={handleClear}>Clear</Button>}
+            {enableClear && <Button handler={handleClear}>Clear</Button>}
             {enableCancel && <Button handler={handleCancel}>Cancel</Button>}
         </div>
     );

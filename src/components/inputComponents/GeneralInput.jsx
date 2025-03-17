@@ -45,49 +45,59 @@ export default function GeneralInput() {
     return (
         <InputFieldCards cardClass={'general'}>
             <form
-                className='flex flex-col'
+                className='flex flex-col gap-3'
                 onSubmit={(e) => e.preventDefault()}
             >
                 <h2>Personal Information</h2>
                 <p>How can potential employers reach you?</p>
-                <label htmlFor='name'>Name</label>
-                <input
-                    type='text'
-                    id='name'
-                    name='name'
-                    placeholder='Name'
-                    required
-                    value={name}
-                    onChange={handleChange}
-                />
-                <label htmlFor='email'>Email</label>
-                <input
-                    type='email'
-                    id='email'
-                    name='email'
-                    value={email}
-                    onChange={handleChange}
-                    placeholder='Email'
-                />
-                <label htmlFor='email'>Phone</label>
-                <input
-                    type='tel'
-                    id='phone'
-                    name='phone'
-                    placeholder='Phone'
-                    value={phone}
-                    onChange={handleChange}
-                    pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                />
-                <label htmlFor='website'>Website</label>
-                <input
-                    type='text'
-                    id='website'
-                    name='website'
-                    value={website}
-                    onChange={handleChange}
-                    placeholder='Website'
-                />
+                <label htmlFor='name'>
+                    <input
+                        type='text'
+                        id='name'
+                        name='name'
+                        placeholder=''
+                        required
+                        value={name}
+                        onChange={handleChange}
+                    />
+                    <span class='labelText'>Name</span>
+                </label>
+                <label htmlFor='email'>
+                    <input
+                        type='email'
+                        id='email'
+                        name='email'
+                        value={email}
+                        onChange={handleChange}
+                        placeholder=''
+                    />
+                    <span class='labelText'>Email</span>
+                </label>
+                <label htmlFor='email'>
+                    <input
+                        type='tel'
+                        id='phone'
+                        name='phone'
+                        placeholder=''
+                        value={phone}
+                        onChange={handleChange}
+                        pattern='^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$'
+                    />
+                    <span class='labelText'>
+                        Phone <span class='subtext'></span>
+                    </span>
+                </label>
+                <label htmlFor='website'>
+                    <input
+                        type='text'
+                        id='website'
+                        name='website'
+                        value={website}
+                        onChange={handleChange}
+                        placeholder=''
+                    />
+                    <span class='labelText'>Website</span>
+                </label>
             </form>
             <InputFormControls enableClear={true} handleClear={handleClear} />
         </InputFieldCards>

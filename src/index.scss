@@ -9,6 +9,43 @@
 
 .inputFields {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    label {
+        display: flex;
+        flex-flow: column nowrap;
+        position: relative;
+
+        input {
+            border: 2px solid var(--color-3);
+            border-radius: 10px;
+            padding: 10px;
+
+            & + span {
+                position: absolute;
+                padding: 0 2px;
+                border-radius: 3px;
+                font-size: 0.8rem;
+                top: -10px;
+                left: 10px;
+                background: var(--color-2);
+                transition: all 0.3s ease;
+            }
+        }
+
+        input:placeholder-shown + span {
+            position: absolute;
+            font-size: 1rem;
+            top: 12px;
+            left: 12px;
+        }
+    }
+}
+
+.inputListItemControls {
+    img {
+        height: 25px;
+        width: auto;
+    }
 }
 
 * {
@@ -17,5 +54,10 @@
 
 h1 {
     font-size: 1.6rem;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 1.25rem;
     font-weight: 800;
 }
