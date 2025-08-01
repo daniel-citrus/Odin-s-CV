@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import TechnologyTemplate from './forms/TechnologyTemplate';
+import TechnologyTemplate from './forms/TechnologyForm';
+import TemplateSelector from './formBlocks/TemplateSelector';
 
 const InputContainer = () => {
-    const [template, setTemplate] = useState(null);
-
     const templates = [
-        { id: 'tech', title: 'Technology' },
-        { id: 'finance', title: 'Finance' },
+        { id: 'finance', title: 'Finance', template: null },
+        { id: 'tech', title: 'Technology', template: TechnologyTemplate },
     ];
+
+    const defaultSelectedId = 'tech';
+
+    const [template, setTemplate] = useState(templates[0].template);
 
     const handleTemplateChange = (val) => {
         setTemplate(val);
@@ -19,6 +22,7 @@ const InputContainer = () => {
                 onTemplateChange={(val) => {
                     handleTemplateChange(val);
                 }}
+                templates={templates}
             />
         </>
     );

@@ -1,9 +1,4 @@
-const TemplateSelector = ({ onTemplateChange }) => {
-    const templates = [
-        { id: 'tech', title: 'Technology' },
-        { id: 'finance', title: 'Finance' },
-    ];
-
+const TemplateSelector = ({ templates, onTemplateChange }) => {
     return (
         <div className='templateSelector'>
             <label for='template'>Template: </label>
