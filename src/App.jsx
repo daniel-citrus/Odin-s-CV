@@ -1,4 +1,4 @@
-import InputContainer from './components/input/InputContainer';
+import InputContainer from './components/input/formBlocks/InputContainer';
 
 function App() {
     return (

@@ -15,7 +15,11 @@ const TemplateSelector = ({ templates, onTemplateChange }) => {
                 }
                 {templates.map((template) => {
                     return (
-                        <option value={template.id} id={template.id}>
+                        <option
+                            key={template.id}
+                            value={template.id}
+                            id={template.id}
+                        >
                             {template.title}
                         </option>
                     );
