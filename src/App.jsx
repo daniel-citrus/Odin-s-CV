@@ -1,9 +1,9 @@
-import InputContainer from './components/input/formBlocks/InputContainer';
+import ResumeBuilder from './components/ResumeBuilder';
 
 function App() {
     return (
         <>
-            <InputContainer />
+            <ResumeBuilder />
         </>
     );
 }
