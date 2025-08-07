@@ -1,27 +1,13 @@
 import InputContainer from './input/InputContainer';
-import { useState } from 'react';
+import OutputContainer from './output/OutputContainer';
+import DataContextWrapper from '../contexts/DataContext';
 
 const ResumeBuilder = () => {
-    const [generalInfo, setGeneralInfo] = useState({
-        name: '',
-        email: '',
-        pheon: '',
-    });
-
-    const onGeneralInfoChange = (id, value) => {
-        setGeneralInfo({
-            ...generalInfo,
-            [id]: value,
-        });
-    };
-
     return (
-        <>
-            <InputContainer
-                generalInfo={generalInfo}
-                onGeneralInfoChange={onGeneralInfoChange}
-            />
-        </>
+        <DataContextWrapper>
+            <InputContainer />
+            <OutputContainer />
+        </DataContextWrapper>
     );
 };
 
