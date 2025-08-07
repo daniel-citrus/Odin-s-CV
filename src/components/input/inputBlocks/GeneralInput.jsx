@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { DataContext } from '../../../contexts/DataContext';
 
 const GeneralInput = () => {
-    const { generalInfo, updateGeneralInfo } = useContext(DataContext);
+    const { generalData, updateGeneralData } = useContext(DataContext);
     return (
         <>
             <fieldset>
@@ -14,10 +14,10 @@ const GeneralInput = () => {
                         type='text'
                         id='name'
                         name='name'
-                        value={generalInfo.name}
+                        value={generalData.name}
                         placeholder='Enter your full name'
                         onChange={(e) =>
-                            updateGeneralInfo('name', e.target.value)
+                            updateGeneralData('name', e.target.value)
                         }
                     />
                 </div>
@@ -28,10 +28,10 @@ const GeneralInput = () => {
                         type='email'
                         id='email'
                         name='email'
-                        value={generalInfo.email}
+                        value={generalData.email}
                         placeholder='Enter your email address'
                         onChange={(e) =>
-                            updateGeneralInfo('email', e.target.value)
+                            updateGeneralData('email', e.target.value)
                         }
                     />
                 </div>
@@ -42,9 +42,9 @@ const GeneralInput = () => {
                         type='tel'
                         id='phone'
                         name='phone'
-                        value={generalInfo.phone}
+                        value={generalData.phone}
                         onChange={(e) => {
-                            updateGeneralInfo('phone', e.target.value);
+                            updateGeneralData('phone', e.target.value);
                         }}
                     />
                 </div>
