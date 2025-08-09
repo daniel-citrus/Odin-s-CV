@@ -2,15 +2,15 @@ import { useState } from 'react';
 
 class EducationEntry {
     constructor(
-        school,
-        degree,
-        gradMonth,
-        gradYear,
-        actualGPA,
-        totalGPA,
-        city,
-        state,
-        courseWork
+        school = '',
+        degree = '',
+        gradMonth = '',
+        gradYear = '',
+        actualGPA = '',
+        totalGPA = '',
+        city = '',
+        state = '',
+        courseWork = ''
     ) {
         this.id = crypto.randomUUID();
         this.school = school;
@@ -26,7 +26,10 @@ class EducationEntry {
 }
 
 const useEducationData = () => {
-    const [educationData, setEducationData] = useState([]);
+    const [educationData, setEducationData] = useState([
+        new EducationEntry('TAMUC'),
+        new EducationEntry('Encinal High'),
+    ]);
 
     const insertNewEducationData = () => {
         const data = new EducationEntry();
@@ -35,8 +38,10 @@ const useEducationData = () => {
     };
 
     const updateEducationData = (id, dataName, newValue) => {
-        educationData.map((entry) =>
-            entry.id === id ? (entry[dataName] = newValue) : entry
+        setEducationData(
+            educationData.map((entry) =>
+                entry.id === id ? (entry[dataName] = newValue) : entry
+            )
         );
     };
 
