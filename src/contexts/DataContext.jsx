@@ -5,8 +5,7 @@ const DataContext = createContext();
 
 /**
  * DataContext - Aggregates multiple custom hooks into a single context
- * This approach combines separate custom hooks (useGeneralData, useEducationData, etc.)
- * into one context provider, avoiding the need to nest multiple context providers.
+ * This approach combines separate custom hooks (useGeneralData, useEducationData, etc.) into one context provider, avoiding the need to nest multiple context providers.
  *
  * Usage:
  * - Wrap your app with DataContextWrapper
