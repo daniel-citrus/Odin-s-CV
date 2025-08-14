@@ -1,47 +1,94 @@
-import useEducationData from '../../../hooks/useEducationData';
+import { useState } from 'react';
+import useDataContext from '../../../hooks/useDataContext';
 
 const EducationInput = () => {
     const {
         educationData,
-        insertNewEducationData,
+        //insertEducationData,
         updateEducationData,
         deleteEducationData,
-    } = useEducationData();
+    } = useDataContext();
 
-    const displayEditWindow = (data) => {};
+    const [inputWindowStatus, setInputWindowStatus] = useState('closed');
+
+    const openInputWindow = (dataId) => {
+        setInputWindowStatus(dataId);
+    };
+
+    const saveInput = () => {
+        setInputWindowStatus('closed');
+    };
 
     return (
-        <ul>
-            {educationData.map((data) => (
-                <li key={data.id}>
-                    <div className='school'>{data.school}</div>
-                    <div className='gradMonth'>{data.gradMonth}</div>
-                    <div className='gradYear'>{data.gradYear}</div>
-                    <div className='controls'>
-                        <button
-                            type='button'
-                            className='edit'
-                            onClick={() => displayEditWindow(data)}
-                        >
-                            Edit
-                        </button>
-                        <button
-                            type='button'
-                            className='delete'
-                            onClick={() => deleteEducationData(data.id)}
-                        >
-                            Delete
-                        </button>
-                    </div>
-                </li>
-            ))}
-        </ul>
+        <div>
+            <ul>
+                {educationData.map((educationItem) => (
+                    <li key={educationItem.id}>
+                        <div className='school'>{educationItem.school}</div>
+                        <div className='gradMonth'>
+                            {educationItem.gradMonth}
+                        </div>
+                        <div className='gradYear'>{educationItem.gradYear}</div>
+                        <div className='controls'>
+                            <button
+                                type='button'
+                                className='edit'
+                                onClick={() => {
+                                    openInputWindow(educationItem.id);
+                                }}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                type='button'
+                                className='delete'
+                                onClick={() =>
+                                    deleteEducationData(educationItem.id)
+                                }
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            {inputWindowStatus != 'closed' && (
+                <EditWindow
+                    data={educationData.find((d) => d.id === inputWindowStatus)}
+                    updateEducationData={updateEducationData}
+                    saveInput={saveInput}
+                />
+            )}
+        </div>
     );
 };
 
-const EditWindow = (data) => {
+const EditWindow = ({ data, saveInput, updateEducationData }) => {
+    if (!data) {
+        return;
+    }
+
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
+
+    const changeEducationData = (dataName, newValue) => {
+        updateEducationData(data.id, dataName, newValue);
+    };
+
     return (
-        <form action='' method='post'>
+        <div className='inputBox'>
             <fieldset>
                 <legend>Education Entry</legend>
 
@@ -52,10 +99,12 @@ const EditWindow = (data) => {
                         id='school'
                         name='school'
                         placeholder='Enter school name'
-                        value={data.school}
+                        value={data.school || ''}
+                        onChange={(e) => {
+                            changeEducationData('school', e.target.value);
+                        }}
                     />
                 </div>
-
                 <div className='form-row'>
                     <label htmlFor='degree'>Degree:</label>
                     <input
@@ -63,26 +112,29 @@ const EditWindow = (data) => {
                         id='degree'
                         name='degree'
                         placeholder='Enter degree'
-                        value={data.degree}
+                        value={data.degree || ''}
+                        onChange={(e) => {
+                            changeEducationData('degree', e.target.value);
+                        }}
                     />
                 </div>
 
                 <div className='form-row'>
                     <label htmlFor='gradMonth'>Graduation Month:</label>
-                    <select id='gradMonth' name='gradMonth'>
+                    <select
+                        id='gradMonth'
+                        name='gradMonth'
+                        onChange={(e) =>
+                            changeEducationData('gradMonth', e.target.value)
+                        }
+                        value={data.gradMonth || ''}
+                    >
                         <option value=''>Select month</option>
-                        <option value='January'>January</option>
-                        <option value='February'>February</option>
-                        <option value='March'>March</option>
-                        <option value='April'>April</option>
-                        <option value='May'>May</option>
-                        <option value='June'>June</option>
-                        <option value='July'>July</option>
-                        <option value='August'>August</option>
-                        <option value='September'>September</option>
-                        <option value='October'>October</option>
-                        <option value='November'>November</option>
-                        <option value='December'>December</option>
+                        {months.map((month) => (
+                            <option key={month} value={month}>
+                                {month}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
@@ -94,7 +146,11 @@ const EditWindow = (data) => {
                         name='gradYear'
                         placeholder='2024'
                         min='1950'
-                        max='2050'
+                        max='9999'
+                        onChange={(e) => {
+                            changeEducationData('gradYear', e.target.value);
+                        }}
+                        value={data.gradYear}
                     />
                 </div>
 
@@ -108,6 +164,10 @@ const EditWindow = (data) => {
                         step='0.01'
                         min='0'
                         max='4'
+                        onChange={(e) =>
+                            changeEducationData('actualGPA', e.target.value)
+                        }
+                        value={data.actualGPA || ''}
                     />
                 </div>
 
@@ -121,6 +181,10 @@ const EditWindow = (data) => {
                         step='0.01'
                         min='0'
                         max='4'
+                        onChange={(e) =>
+                            changeEducationData('totalGPA', e.target.value)
+                        }
+                        value={data.totalGPA || ''}
                     />
                 </div>
 
@@ -131,6 +195,10 @@ const EditWindow = (data) => {
                         id='city'
                         name='city'
                         placeholder='Enter city'
+                        onChange={(e) =>
+                            changeEducationData('city', e.target.value)
+                        }
+                        value={data.city || ''}
                     />
                 </div>
 
@@ -141,6 +209,10 @@ const EditWindow = (data) => {
                         id='state'
                         name='state'
                         placeholder='Enter state'
+                        onChange={(e) =>
+                            changeEducationData('state', e.target.value)
+                        }
+                        value={data.state || ''}
                     />
                 </div>
 
@@ -151,15 +223,20 @@ const EditWindow = (data) => {
                         name='courseWork'
                         placeholder='Enter relevant coursework'
                         rows='3'
+                        onChange={(e) =>
+                            changeEducationData('courseWork', e.target.value)
+                        }
+                        value={data.courseWork || ''}
                     />
                 </div>
 
                 <div className='form-controls'>
-                    <button type='submit'>Save</button>
-                    <button type='button'>Cancel</button>
+                    <button type='submit' onClick={saveInput}>
+                        Save
+                    </button>
                 </div>
             </fieldset>
-        </form>
+        </div>
     );
 };
 

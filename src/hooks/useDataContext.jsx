@@ -7,7 +7,7 @@ const useDataContext = () => {
 
     if (!context) {
         throw new Error(
-            'useFormContext must be used within a DataContextProvider'
+            'useDataContext must be used within a DataContextProvider'
         );
     }
 

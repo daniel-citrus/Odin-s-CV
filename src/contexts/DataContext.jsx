@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import useGeneralData from '../hooks/useGeneralData';
+import useEducationData from '../hooks/useEducationData';
 
 const DataContext = createContext();
 
@@ -13,10 +14,12 @@ const DataContext = createContext();
  * - Each hook's functions are available through the context
  */
 const DataContextWrapper = ({ children }) => {
-    const generalDataHook = useGeneralData();
-    const data = { ...generalDataHook };
+    const resumeData = {
+        ...useEducationData(),
+        ...useGeneralData(),
+    };
 
-    return <DataContext value={data}>{children}</DataContext>;
+    return <DataContext value={resumeData}>{children}</DataContext>;
 };
 
 export { DataContextWrapper as default, DataContext };
