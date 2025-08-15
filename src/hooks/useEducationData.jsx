@@ -49,11 +49,10 @@ const useEducationData = () => {
             'TX',
             'Advanced Mathematics, Physics, Chemistry, English Literature, Computer Programming, Spanish'
         ),
-        new EducationEntry('TAMUC'),
     ]);
 
-    const insertEducationData = () => {
-        const data = new EducationEntry();
+    const insertEducationData = (inputData) => {
+        const data = new EducationEntry(...inputData);
 
         setEducationData([...educationData, data]);
     };
@@ -61,9 +60,7 @@ const useEducationData = () => {
     const updateEducationData = (id, dataName, newValue) => {
         setEducationData(
             educationData.map((entry) =>
-                entry.id === id 
-                    ? { ...entry, [dataName]: newValue }
-                    : entry
+                entry.id === id ? { ...entry, [dataName]: newValue } : entry
             )
         );
     };

@@ -4,9 +4,7 @@ import EducationInput from '../inputBlocks/EducationInput';
 const TechInputs = () => {
     return (
         <>
-            {/* General */}
             <GeneralInput />
-            {/* Education */}
             <EducationInput />
             {/* Experience */}
             {/* Projects */}
