@@ -57,11 +57,9 @@ const useEducationData = () => {
         setEducationData([...educationData, data]);
     };
 
-    const updateEducationData = (id, dataName, newValue) => {
+    const updateEducationData = (id, newEntry) => {
         setEducationData(
-            educationData.map((entry) =>
-                entry.id === id ? { ...entry, [dataName]: newValue } : entry
-            )
+            educationData.map((entry) => (entry.id === id ? newEntry : entry))
         );
     };
 

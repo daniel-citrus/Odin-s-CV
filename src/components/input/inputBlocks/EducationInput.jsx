@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useDataContext from '../../../hooks/useDataContext';
-import { data } from 'autoprefixer';
 
 const EducationInput = () => {
     const {
@@ -14,16 +13,23 @@ const EducationInput = () => {
     const [editingInputId, setEditingInputId] = useState(null);
 
     const editInput = (dataId) => {
-        setInputWindowStatus('editing');
         setEditingInputId(dataId);
+        setInputWindowStatus('editing');
     };
 
     const closeInputWindow = () => {
-        setInputWindowStatus('closed');
         setEditingInputId(null);
+        setInputWindowStatus('closed');
     };
 
-    const createInput = () => {};
+    const insertNewInput = () => {
+        setInputWindowStatus('creating');
+    };
+
+    const updateInput = (id, data) => {
+        updateEducationData(id, data);
+        setInputWindowStatus('closed');
+    };
 
     return (
         <div className='bg-white rounded-lg shadow-md p-6 mb-6'>
@@ -69,10 +75,11 @@ const EducationInput = () => {
                         </div>
                     </li>
                 ))}
-                <li>
+                <li key='add-education-button'>
                     <button
                         type='button'
                         className='w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors'
+                        onClick={() => insertNewInput()}
                     >
                         + Add Education
                     </button>
@@ -82,22 +89,31 @@ const EducationInput = () => {
                 <EditWindow
                     status={inputWindowStatus}
                     closeWindow={closeInputWindow}
-                    inputId={
+                    inputData={
                         editingInputId
                             ? educationData.find((d) => d.id === editingInputId)
                             : null
                     }
-                    onInputUpdate={updateEducationData}
+                    updateInput={updateInput}
                 />
             )}
         </div>
     );
 };
 
-const EditWindow = ({ status, data }) => {
-    if (!data) {
-        return;
-    }
+const EditWindow = ({ status, inputData, closeWindow, updateInput }) => {
+    const [formData, setFormData] = useState({
+        id: inputData?.id || '',
+        school: inputData?.school || '',
+        degree: inputData?.degree || '',
+        gradMonth: inputData?.gradMonth || '',
+        gradYear: inputData?.gradYear || '',
+        actualGPA: inputData?.actualGPA || '',
+        totalGPA: inputData?.totalGPA || '',
+        city: inputData?.city || '',
+        state: inputData?.state || '',
+        courseWork: inputData?.courseWork || '',
+    });
 
     const months = [
         'January',
@@ -113,6 +129,18 @@ const EditWindow = ({ status, data }) => {
         'November',
         'December',
     ];
+
+    const updateField = (fieldName, newValue) => {
+        setFormData((prev) => ({
+            ...prev,
+            [fieldName]: newValue,
+        }));
+    };
+
+    const onUpdateInput = () => {
+        updateInput(inputData.id, formData);
+        closeWindow();
+    };
 
     return (
         <div className='inputBox fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
@@ -134,9 +162,9 @@ const EditWindow = ({ status, data }) => {
                             id='school'
                             name='school'
                             placeholder='Enter school name'
-                            value={data.school || ''}
+                            value={formData.school}
                             onChange={(e) => {
-                                updateData('school', e.target.value);
+                                updateField('school', e.target.value);
                             }}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
@@ -153,9 +181,9 @@ const EditWindow = ({ status, data }) => {
                             id='degree'
                             name='degree'
                             placeholder='Enter degree'
-                            value={data.degree || ''}
+                            value={formData.degree}
                             onChange={(e) => {
-                                updateData('degree', e.target.value);
+                                updateField('degree', e.target.value);
                             }}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
@@ -172,9 +200,9 @@ const EditWindow = ({ status, data }) => {
                             id='gradMonth'
                             name='gradMonth'
                             onChange={(e) =>
-                                updateData('gradMonth', e.target.value)
+                                updateField('gradMonth', e.target.value)
                             }
-                            value={data.gradMonth || ''}
+                            value={formData.gradMonth}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         >
                             <option value=''>Select month</option>
@@ -201,9 +229,9 @@ const EditWindow = ({ status, data }) => {
                             min='1950'
                             max='9999'
                             onChange={(e) => {
-                                updateData('gradYear', e.target.value);
+                                updateField('gradYear', e.target.value);
                             }}
-                            value={data.gradYear}
+                            value={formData.gradYear}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
                     </div>
@@ -224,9 +252,9 @@ const EditWindow = ({ status, data }) => {
                             min='0'
                             max='4'
                             onChange={(e) =>
-                                updateData('actualGPA', e.target.value)
+                                updateField('actualGPA', e.target.value)
                             }
-                            value={data.actualGPA || ''}
+                            value={formData.actualGPA}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
                     </div>
@@ -247,9 +275,9 @@ const EditWindow = ({ status, data }) => {
                             min='0'
                             max='4'
                             onChange={(e) =>
-                                updateData('totalGPA', e.target.value)
+                                updateField('totalGPA', e.target.value)
                             }
-                            value={data.totalGPA || ''}
+                            value={formData.totalGPA}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
                     </div>
@@ -266,8 +294,10 @@ const EditWindow = ({ status, data }) => {
                             id='city'
                             name='city'
                             placeholder='Enter city'
-                            onChange={(e) => updateData('city', e.target.value)}
-                            value={data.city || ''}
+                            onChange={(e) =>
+                                updateField('city', e.target.value)
+                            }
+                            value={formData.city}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
                     </div>
@@ -285,9 +315,9 @@ const EditWindow = ({ status, data }) => {
                             name='state'
                             placeholder='Enter state'
                             onChange={(e) =>
-                                updateData('state', e.target.value)
+                                updateField('state', e.target.value)
                             }
-                            value={data.state || ''}
+                            value={formData.state}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                         />
                     </div>
@@ -305,24 +335,31 @@ const EditWindow = ({ status, data }) => {
                             placeholder='Enter relevant coursework'
                             rows='3'
                             onChange={(e) =>
-                                updateData('courseWork', e.target.value)
+                                updateField('courseWork', e.target.value)
                             }
-                            value={data.courseWork || ''}
+                            value={formData.courseWork}
                             className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-vertical'
                         />
                     </div>
 
                     <div className='form-controls'>
-                        {status !== 'create' ? (
+                        {status === 'creating' && (
                             <button
                                 type='button'
-                                onClick={submitData}
+                                onClick={() => closeWindow()}
+                                className='w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
+                            >
+                                Add
+                            </button>
+                        )}
+                        {status === 'editing' && (
+                            <button
+                                type='button'
+                                onClick={() => onUpdateInput()}
                                 className='w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
                             >
                                 Save
                             </button>
-                        ) : (
-                            ''
                         )}
                     </div>
                 </fieldset>
