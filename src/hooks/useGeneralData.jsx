@@ -8,10 +8,10 @@ const useGeneralData = () => {
     });
 
     const updateGeneralData = (id, val) => {
-        setGeneralData({
-            ...generalData,
+        setGeneralData(prev => ({
+            ...prev,
             [id]: val,
-        });
+        }));
     };
 
     return { generalData, updateGeneralData };
