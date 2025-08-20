@@ -52,7 +52,17 @@ const useEducationData = () => {
     ]);
 
     const insertEducationData = (inputData) => {
-        const data = new EducationEntry(...inputData);
+        const data = new EducationEntry(
+            inputData?.school || '',
+            inputData?.degree || '',
+            inputData?.gradMonth || '',
+            inputData?.gradYear || '',
+            inputData?.actualGPA || '',
+            inputData?.totalGPA || '',
+            inputData?.city || '',
+            inputData?.state || '',
+            inputData?.courseWork || ''
+        );
 
         setEducationData([...educationData, data]);
     };

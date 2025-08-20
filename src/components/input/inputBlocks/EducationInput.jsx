@@ -12,23 +12,26 @@ const EducationInput = () => {
     const [inputWindowStatus, setInputWindowStatus] = useState('closed');
     const [editingInputId, setEditingInputId] = useState(null);
 
-    const editInput = (dataId) => {
+    const onAddInput = (inputData) => {
+        insertEducationData(inputData);
+        setInputWindowStatus('closed');
+        setEditingInputId(null);
+    };
+
+    const onEditInput = (dataId) => {
         setEditingInputId(dataId);
         setInputWindowStatus('editing');
     };
 
-    const closeInputWindow = () => {
-        setEditingInputId(null);
-        setInputWindowStatus('closed');
-    };
-
-    const insertNewInput = () => {
-        setInputWindowStatus('creating');
-    };
-
-    const updateInput = (id, data) => {
+    const onUpdateInput = (id, data) => {
         updateEducationData(id, data);
         setInputWindowStatus('closed');
+        setEditingInputId(null);
+    };
+
+    const onInsertNewInput = () => {
+        setEditingInputId(null);
+        setInputWindowStatus('creating');
     };
 
     return (
@@ -57,7 +60,7 @@ const EducationInput = () => {
                                     type='button'
                                     className='edit px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors'
                                     onClick={() => {
-                                        editInput(educationItem.id);
+                                        onEditInput(educationItem.id);
                                     }}
                                 >
                                     Edit
@@ -79,7 +82,7 @@ const EducationInput = () => {
                     <button
                         type='button'
                         className='w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors'
-                        onClick={() => insertNewInput()}
+                        onClick={() => onInsertNewInput()}
                     >
                         + Add Education
                     </button>
@@ -88,20 +91,25 @@ const EducationInput = () => {
             {inputWindowStatus != 'closed' && (
                 <EditWindow
                     status={inputWindowStatus}
-                    closeWindow={closeInputWindow}
                     inputData={
                         editingInputId
                             ? educationData.find((d) => d.id === editingInputId)
                             : null
                     }
-                    updateInput={updateInput}
+                    onAddInput={onAddInput}
+                    onUpdateInput={onUpdateInput}
                 />
             )}
         </div>
     );
 };
 
-const EditWindow = ({ status, inputData, closeWindow, updateInput }) => {
+const EditWindow = ({
+    status,
+    inputData,
+    onAddInput,
+    onUpdateInput,
+}) => {
     const [formData, setFormData] = useState({
         id: inputData?.id || '',
         school: inputData?.school || '',
@@ -135,11 +143,6 @@ const EditWindow = ({ status, inputData, closeWindow, updateInput }) => {
             ...prev,
             [fieldName]: newValue,
         }));
-    };
-
-    const onUpdateInput = () => {
-        updateInput(inputData.id, formData);
-        closeWindow();
     };
 
     return (
@@ -346,7 +349,7 @@ const EditWindow = ({ status, inputData, closeWindow, updateInput }) => {
                         {status === 'creating' && (
                             <button
                                 type='button'
-                                onClick={() => closeWindow()}
+                                onClick={() => onAddInput(formData)}
                                 className='w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
                             >
                                 Add
@@ -355,7 +358,9 @@ const EditWindow = ({ status, inputData, closeWindow, updateInput }) => {
                         {status === 'editing' && (
                             <button
                                 type='button'
-                                onClick={() => onUpdateInput()}
+                                onClick={() =>
+                                    onUpdateInput(inputData.id, formData)
+                                }
                                 className='w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
                             >
                                 Save
