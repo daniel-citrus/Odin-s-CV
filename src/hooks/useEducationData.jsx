@@ -41,7 +41,7 @@ const useEducationData = () => {
             inputData?.courseWork || ''
         );
 
-        setEducationData([...educationData, data]);
+        setEducationData((prev) => [...prev, data]);
     };
 
     const updateEducationData = (id, newEntry) => {

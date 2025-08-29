@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useDataContext from '../../../hooks/useDataContext';
+import useDataContext from '../../hooks/useDataContext';
 
 const EducationInput = () => {
     const {
@@ -32,6 +32,11 @@ const EducationInput = () => {
     const onInsertNewInput = () => {
         setEditingInputId(null);
         setInputWindowStatus('creating');
+    };
+
+    const onInputWindowCancel = () => {
+        setInputWindowStatus('closed');
+        setEditingInputId(null);
     };
 
     return (
@@ -98,6 +103,7 @@ const EducationInput = () => {
                     }
                     onAddInput={onAddInput}
                     onUpdateInput={onUpdateInput}
+                    onCancel={onInputWindowCancel}
                 />
             )}
         </div>
@@ -109,6 +115,7 @@ const EditWindow = ({
     inputData,
     onAddInput,
     onUpdateInput,
+    onCancel,
 }) => {
     const [formData, setFormData] = useState({
         id: inputData?.id || '',
@@ -146,7 +153,14 @@ const EditWindow = ({
     };
 
     return (
-        <div className='inputBox fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+        <div
+            className='inputBox fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'
+            onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                    onCancel();
+                }
+            }}
+        >
             <div className='bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <fieldset className='border-0'>
                     <legend className='text-xl font-semibold text-gray-800 mb-4'>
