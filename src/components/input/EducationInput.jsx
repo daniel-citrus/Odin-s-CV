@@ -94,7 +94,7 @@ const EducationInput = () => {
                 </li>
             </ul>
             {inputWindowStatus != 'closed' && (
-                <EditWindow
+                <EducationEditor
                     status={inputWindowStatus}
                     inputData={
                         editingInputId
@@ -110,7 +110,7 @@ const EducationInput = () => {
     );
 };
 
-const EditWindow = ({
+const EducationEditor = ({
     status,
     inputData,
     onAddInput,
@@ -359,7 +359,7 @@ const EditWindow = ({
                         />
                     </div>
 
-                    <div className='form-controls'>
+                    <div className='form-controls flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:space-x-3'>
                         {status === 'creating' && (
                             <button
                                 type='button'
@@ -380,6 +380,16 @@ const EditWindow = ({
                                 Save
                             </button>
                         )}
+
+                        <button
+                            type='button'
+                            onClick={() => {
+                                onCancel();
+                            }}
+                            className='w-full px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors'
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </fieldset>
             </div>

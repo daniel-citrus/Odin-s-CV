@@ -6,6 +6,7 @@ class ExperienceData {
         role = '',
         startMonth = '',
         endMonth = '',
+        present = false,
         startYear = '',
         endYear = '',
         city = '',
@@ -17,6 +18,7 @@ class ExperienceData {
         this.role = role;
         this.startMonth = startMonth;
         this.endMonth = endMonth;
+        this.present = present;
         this.startYear = startYear;
         this.endYear = endYear;
         this.city = city;
@@ -26,35 +28,32 @@ class ExperienceData {
 }
 
 const useExperienceData = () => {
-    const [experienceData, setExperienceData] = useState([
-        
-    ]);
+    const [experienceData, setExperienceData] = useState([]);
 
-    const useInsertExperience = (input) => {
-        const newData = ExperienceData(
+    const insertExperience = (input) => {
+        const newData = new ExperienceData(
             input?.organization || '',
             input?.role || '',
             input?.startMonth || '',
             input?.endMonth || '',
+            input?.present,
             input?.startYear || '',
             input?.endYear || '',
             input?.city || '',
             input?.state || '',
-            input?.description || ''
+            input?.description || []
         );
 
-        setExperienceData((prev) => {
-            [...prev, newData];
-        });
+        setExperienceData((prev) => [...prev, newData]);
     };
 
     // delete experience
-    const useDeleteExperience = (id) => {
+    const deleteExperience = (id) => {
         setExperienceData(experienceData.filter((entry) => entry.id !== id));
     };
 
     // update experience
-    const useUpdateExperience = (id, newEntry) => {
+    const updateExperience = (id, newEntry) => {
         setExperienceData(
             experienceData.map((entry) => (entry.id === id ? newEntry : entry))
         );
@@ -62,9 +61,9 @@ const useExperienceData = () => {
 
     return {
         experienceData,
-        useInsertExperience,
-        useDeleteExperience,
-        useUpdateExperience,
+        insertExperience,
+        deleteExperience,
+        updateExperience,
     };
 };
 
